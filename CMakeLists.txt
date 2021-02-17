@@ -22,13 +22,16 @@ add_executable(labs_main ${SOURCE_FILES})
 
 include_directories(
         lib/lab01/inc
+        lib/lab02/inc
 )
 
 add_subdirectory(lib/lab01 lab1_lib)
+add_subdirectory(lib/lab02 lab2_lib)
 
 add_subdirectory(test)
 
 target_link_libraries(
         labs_main
         lab1_lib
+        lab2_lib
 )
