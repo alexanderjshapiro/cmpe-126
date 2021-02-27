@@ -1,12 +1,11 @@
 #include "../inc/stringVector.h"
 
-#include <utility>
-
 namespace lab2 {
     stringVector::stringVector() {
         // Initialize empty vector
         length = 0;
         allocated_length = 0;
+
         data = new std::string[allocated_length];
     }
 
@@ -26,7 +25,7 @@ namespace lab2 {
         // Copy data to array with desired capacity
         allocated_length = new_size;
         auto *newData = new std::string[allocated_length];
-        for (int i = 0; i < length && i < allocated_length; ++i) {
+        for (unsigned i = 0; i < length && i < allocated_length; ++i) {
             newData[i] = data[i];
         }
 
@@ -41,11 +40,7 @@ namespace lab2 {
     }
 
     bool stringVector::empty() const {
-        if (length == 0) {
-            return true;
-        } else {
-            return false;
-        }
+        return length == 0;
     }
 
     void stringVector::append(std::string new_data) {
@@ -62,13 +57,11 @@ namespace lab2 {
     void stringVector::swap(unsigned pos1, unsigned pos2) {
         // Validate indices, then swap elements
         if (pos1 < 0 || pos1 >= length) {
-            throw std::out_of_range("");
+            throw std::runtime_error("first index " + std::to_string(pos1) + " is invalid");
         } else if (pos2 < 0 || pos2 >= length) {
-            throw std::out_of_range("");
+            throw std::runtime_error("second index " + std::to_string(pos2) + " is invalid");
         } else {
-            std::string temp = data[pos1];
-            data[pos1] = data[pos2];
-            data[pos2] = temp;
+            std::swap(data[pos1], data[pos2]);
         }
     }
 
@@ -93,14 +86,15 @@ namespace lab2 {
 
     std::string &stringVector::operator[](unsigned position) {
         if (position < 0 || position >= length) {
-            throw std::out_of_range("");
+            throw std::runtime_error("index " + std::to_string(position) + " is invalid");
         } else {
             return data[position];
         }
     }
 
     void stringVector::sort() {
-        for (unsigned int pass = 1; pass < length; pass++) {
+        // Bubble sort, where lowercase letters come before uppercase letters
+        for (unsigned pass = 1; pass < length; pass++) {
             for (size_t j = 0; j < length - 1; ++j) {
                 // Switch case of letters to override sort order
                 std::string first = data[j];
