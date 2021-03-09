@@ -16,7 +16,7 @@ public:
     lab3::fifo *fifoUT;
 };
 
-TEST(CrashTest, fifoCrashTest) {
+TEST(CrashTest, fifo_crashTest) {
     auto fifoUT = new lab3::fifo;
     delete fifoUT;
 }
@@ -75,9 +75,14 @@ TEST_F(FifoTest, top_doesNotCrash) {
 TEST_F(FifoTest, top_getsFrontOfQueue) {
     fifoUT->enqueue("foo");
     EXPECT_EQ("foo", fifoUT->top());
+
     fifoUT->enqueue("bar");
     EXPECT_EQ("foo", fifoUT->top());
+
     fifoUT->dequeue();
+    EXPECT_EQ("bar", fifoUT->top());
+
+    fifoUT->enqueue("baz");
     EXPECT_EQ("bar", fifoUT->top());
 }
 
@@ -199,7 +204,7 @@ public:
 };
 
 
-TEST(CrashTest, lifoCrashTest) {
+TEST(CrashTest, lifo_crashTest) {
     auto lifoUT = new lab3::lifo;
     delete lifoUT;
 }
@@ -258,10 +263,15 @@ TEST_F(LifoTest, top_doesNotCrash) {
 TEST_F(LifoTest, top_getsTopOfStack) {
     lifoUT->push("foo");
     EXPECT_EQ("foo", lifoUT->top());
+
     lifoUT->push("bar");
     EXPECT_EQ("bar", lifoUT->top());
+
     lifoUT->pop();
     EXPECT_EQ("foo", lifoUT->top());
+
+    lifoUT->push("baz");
+    EXPECT_EQ("baz", lifoUT->top());
 }
 
 TEST_F(LifoTest, top_stackIsEmpty_crashes) {

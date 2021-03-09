@@ -22,6 +22,10 @@ namespace lab2 {
     }
 
     void stringVector::reserve(unsigned new_size) {
+        if (new_size == allocated_length) {
+            return;
+        }
+
         // Copy data to array with desired capacity
         allocated_length = new_size;
         auto *newData = new std::string[allocated_length];

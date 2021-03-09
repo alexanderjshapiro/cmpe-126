@@ -15,7 +15,7 @@ public:
     lab2::stringVector *stringVectorUT;
 };
 
-TEST(CrashTest, stringVectorCrashTest) {
+TEST(CrashTest, stringVector_crashTest) {
     auto *stringVectorUT = new lab2::stringVector;
     delete stringVectorUT;
 }
@@ -155,6 +155,19 @@ TEST_F(StringVectorTest, bracketsOperator_accessesData) {
     EXPECT_ANY_THROW(stringVectorUT->operator[](1000000));
     EXPECT_ANY_THROW(stringVectorUT->operator[](-1));
     EXPECT_ANY_THROW(stringVectorUT->operator[](-100));
+}
+
+TEST_F(StringVectorTest, equalsOperator_selfAssignment_doesNotChangeData) {
+    stringVectorUT->reserve(3);
+    stringVectorUT->append("foo");
+    stringVectorUT->append("bar");
+
+    stringVectorUT->operator=(*stringVectorUT);
+
+    EXPECT_EQ("foo", stringVectorUT->operator[](0));
+    EXPECT_EQ("bar", stringVectorUT->operator[](1));
+    EXPECT_EQ(3, stringVectorUT->capacity());
+    EXPECT_EQ(2, stringVectorUT->size());
 }
 
 TEST_F(StringVectorTest, equalsOperator_hardCopiesData) {
