@@ -7,11 +7,6 @@ namespace lab3 {
         // Reserve 100 spaces in lifo_storage
         lifo_storage.reserve(STACK_SIZE);
 
-        // Hack: Append to lifo_storage to avoid problems with stringVector length validation
-        for (int i = 0; i < STACK_SIZE; i++) {
-            lifo_storage.append("");
-        }
-
         index = -1;
     }
 
@@ -44,6 +39,9 @@ namespace lab3 {
         if (size() == STACK_SIZE) {
             throw std::runtime_error("cannot push because stack is full");
         } else {
+            // Hack: Append to lifo_storage to avoid problems with stringVector length validation
+            lifo_storage.append("");
+
             lifo_storage[++index] = input;
         }
     }

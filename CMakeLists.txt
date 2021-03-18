@@ -25,12 +25,14 @@ include_directories(
         lib/lab02/inc
         lib/lab03/inc
         lib/lab04/inc
+        lib/lab05/inc
 )
 
 add_subdirectory(lib/lab01 lab1_lib)
 add_subdirectory(lib/lab02 lab2_lib)
 add_subdirectory(lib/lab03 lab3_lib)
 add_subdirectory(lib/lab04 lab4_lib)
+add_subdirectory(lib/lab05 lab5_lib)
 
 add_subdirectory(test)
 
@@ -40,4 +42,5 @@ target_link_libraries(
         lab2_lib
         lab3_lib
         lab4_lib
+        lab5_lib
 )

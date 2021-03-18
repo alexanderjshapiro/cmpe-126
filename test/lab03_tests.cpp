@@ -161,7 +161,7 @@ TEST_F(FifoTest, equalsOperator_hardCopiesValues) {
     EXPECT_EQ("bar", otherFifoUT->top());
 }
 
-TEST_F(FifoTest, fifo_loopback) {
+TEST_F(FifoTest, fifo_cirularlyLoopsBack) {
     fifoUT->enqueue("test Input");
     for (int i = 0; i < 150; ++i) {
         ASSERT_NO_THROW(fifoUT->enqueue("test Input")) << "failed on iteration: " << i << "\n";

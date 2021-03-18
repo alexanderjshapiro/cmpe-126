@@ -9,11 +9,6 @@ namespace lab3 {
         // Reserve 100 spaces in fifo_storage
         fifo_storage.reserve(QUEUE_SIZE);
 
-        // Hack: Append to lifo_storage to avoid problems with stringVector length validation
-        for (int i = 0; i < QUEUE_SIZE; i++) {
-            fifo_storage.append("");
-        }
-
         front_index = 0;
         back_index = -1;
     }
@@ -51,6 +46,9 @@ namespace lab3 {
         if (size() == QUEUE_SIZE) {
             throw std::runtime_error("cannot enqueue because queue is full");
         } else {
+            // Hack: Append to fifo_storage to avoid problems with stringVector length validation
+            fifo_storage.append("");
+
             fifo_storage[++back_index % 100] = std::move(input);
         }
     }
