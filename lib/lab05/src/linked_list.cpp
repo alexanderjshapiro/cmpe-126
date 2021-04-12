@@ -19,7 +19,7 @@ namespace lab5 {
 
     linked_list::~linked_list() {
         // Delete each node using remove
-        while (head != nullptr) {
+        while (!isEmpty()) {
             remove(0);
         }
     }
