@@ -17,7 +17,7 @@ public:
     lab6::doubly_linked_list *doublyLinkedListUT;
 };
 
-TEST(Lab06crsh, crash_test_dll) {
+TEST(CrashTest, doublyLinkedList_crashTest) {
     std::vector<int> number_list;
     lab6::doubly_linked_list *list;
 

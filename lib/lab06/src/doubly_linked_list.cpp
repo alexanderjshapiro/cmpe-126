@@ -221,10 +221,9 @@ namespace lab6 {
     }
 
     void doubly_linked_list::swap_set(unsigned location_1_start, unsigned location_1_end, unsigned location_2_start, unsigned location_2_end) {
-        unsigned second = location_2_start;
-        for (unsigned first = location_1_start; first <= location_1_end; first++) {
-            swap(first, second);
-            second++;
+        unsigned setSize = location_1_end - location_1_start + 1;
+        for (unsigned i = 0; i < setSize; i++) {
+            swap(location_1_start + i, location_2_start + i);
         }
     }
 

@@ -8,6 +8,7 @@ add_executable(
         lab04_tests.cpp
         lab05_tests.cpp
         lab06_tests.cpp
+        lab07_tests.cpp
 )
 
 add_subdirectory(gtest-1.7.0)
@@ -22,4 +23,5 @@ target_link_libraries(
         lab4_lib
         lab5_lib
         lab6_lib
+        lab7_lib
 )
