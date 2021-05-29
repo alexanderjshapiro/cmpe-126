@@ -1,4 +1,4 @@
-#include "../inc/DoublyLinkedList.h"
+#include "DoublyLinkedList.h"
 
 namespace lab6 {
     DoublyLinkedList::DoublyLinkedList() {
@@ -6,26 +6,26 @@ namespace lab6 {
         tail = nullptr;
     }
 
-    DoublyLinkedList::DoublyLinkedList(int firstValue) : DoublyLinkedList() {
-        append(firstValue);
+    DoublyLinkedList::DoublyLinkedList(int integer) : DoublyLinkedList() {
+        append(integer);
     }
 
-    DoublyLinkedList::DoublyLinkedList(const std::vector<int>& vector) : DoublyLinkedList() {
-        for (int num : vector) append(num);
+    DoublyLinkedList::DoublyLinkedList(const std::vector<int>& integers) : DoublyLinkedList() {
+        for (int num : integers) append(num);
     }
 
-    DoublyLinkedList::DoublyLinkedList(const DoublyLinkedList &original) : DoublyLinkedList() {
-        *this = original;
+    DoublyLinkedList::DoublyLinkedList(const DoublyLinkedList &other) : DoublyLinkedList() {
+        *this = other;
     }
 
     DoublyLinkedList::~DoublyLinkedList() {
         while (!empty()) remove(0);
     }
 
-    int DoublyLinkedList::getValue(unsigned index) {
+    int DoublyLinkedList::at(unsigned index) const {
         if (empty()) throw std::runtime_error("invalid access index " + std::to_string(index) + " for empty list");
 
-        Node *current = head;
+        DoublyLinkedListNode *current = head;
         for (unsigned i = 0; i < index; i++) {
             current = current->next;
             if (!current) throw std::runtime_error("invalid access index " + std::to_string(index) + " for list of size " + std::to_string(size()));
@@ -34,20 +34,20 @@ namespace lab6 {
         return current->getValue();
     }
 
-    std::vector<int> DoublyLinkedList::getSet(unsigned indexFrom, unsigned indexTo) {
+    std::vector<int> DoublyLinkedList::getSet(unsigned indexFrom, unsigned indexTo) const {
         // Swap wrongly ordered indices
         if (indexFrom > indexTo) std::swap(indexFrom, indexTo);
 
         std::vector<int> set;
 
-        Node *start = head;
+        DoublyLinkedListNode *start = head;
         for (unsigned i = 0; i < indexFrom; i++) {
             start = start->next;
             if (!start) throw std::runtime_error("invalid set start index " + std::to_string(indexFrom) + " for list of size " + std::to_string(size()));
         }
 
         unsigned setSize = indexTo - indexFrom;
-        Node *current = start;
+        DoublyLinkedListNode *current = start;
         for (unsigned i = 0; i <= setSize; i++) {
             if (!current) throw std::runtime_error("invalid set end index " + std::to_string(indexTo) + " for list of size " + std::to_string(size()));
             set.push_back(current->getValue());
@@ -57,55 +57,55 @@ namespace lab6 {
         return set;
     }
 
-    unsigned DoublyLinkedList::size() {
+    unsigned DoublyLinkedList::size() const {
         unsigned count = 0;
-        for (Node *current = head; current != nullptr; current = current->next) count++;
+        for (DoublyLinkedListNode *current = head; current != nullptr; current = current->next) count++;
         return count;
     }
 
-    bool DoublyLinkedList::empty() {
+    bool DoublyLinkedList::empty() const {
         return head == nullptr;
     }
 
-    void DoublyLinkedList::append(int value) {
+    void DoublyLinkedList::append(int integer) {
         if (empty()) {
-            head = new Node(value);
+            head = new DoublyLinkedListNode(integer);
             tail = head;
         } else {
-            // Create a new node after the tail and update the tail
-            tail->next = new Node(value);
+            // Create a new LinkedListNode after the tail and update the tail
+            tail->next = new DoublyLinkedListNode(integer);
             tail->next->prev = tail;
             tail = tail->next;
         }
     }
 
-    void DoublyLinkedList::insert(int value, unsigned int index) {
+    void DoublyLinkedList::insert(int integer, unsigned int index) {
         if (empty()) {
-            if (index == 0) append(value);
+            if (index == 0) append(integer);
             else throw std::runtime_error("invalid insertion index " + std::to_string(index) + " for empty list");
         } else if (index == 0) {
-            // Create a new node before the head and update the head
-            head->prev = new Node(value);
+            // Create a new LinkedListNode before the head and update the head
+            head->prev = new DoublyLinkedListNode(integer);
             head->prev->next = head;
             head = head->prev;
         } else {
-            // Find the Node preceding the index to be inserted
-            Node *before = head;
+            // Find the LinkedListNode preceding the index to be inserted
+            DoublyLinkedListNode *before = head;
             for (unsigned i = 0; i < index - 1; i++) {
                 before = before->next;
                 if (!before) throw std::runtime_error("invalid insertion index " + std::to_string(index) + " for list of size " + std::to_string(size()));
             }
 
-            // Make the new node point backwards to the node before and forwards to the node after
-            Node *toBeInserted = new Node(value);
+            // Make the new LinkedListNode point backwards to the LinkedListNode before and forwards to the LinkedListNode after
+            DoublyLinkedListNode *toBeInserted = new DoublyLinkedListNode(integer);
             toBeInserted->next = before->next;
             toBeInserted->prev = before;
 
-            // Make the node before point forwards to the node after
+            // Make the LinkedListNode before point forwards to the LinkedListNode after
             toBeInserted->prev->next = toBeInserted;
 
-            // Make the node after point backwards to the node before
-            // If there is no node after, update the tail
+            // Make the LinkedListNode after point backwards to the LinkedListNode before
+            // If there is no LinkedListNode after, update the tail
             if (toBeInserted->next) toBeInserted->next->prev = toBeInserted;
             else tail = toBeInserted;
         }
@@ -114,19 +114,19 @@ namespace lab6 {
     void DoublyLinkedList::remove(unsigned index) {
         if (empty()) throw std::runtime_error("invalid removal index " + std::to_string(index) + " for empty list");
 
-        Node *toBeRemoved = head;
+        DoublyLinkedListNode *toBeRemoved = head;
         for (unsigned i = 0; i < index; i++) {
             toBeRemoved = toBeRemoved->next;
             if (!toBeRemoved) throw std::runtime_error("invalid split index " + std::to_string(index) + " for list of size " + std::to_string(size()));
         }
 
-        // Make the node before point forwards to the node after
-        // If there is no node before, update the head
+        // Make the LinkedListNode before point forwards to the LinkedListNode after
+        // If there is no LinkedListNode before, update the head
         if (toBeRemoved->prev) toBeRemoved->prev->next = toBeRemoved->next;
         else head = toBeRemoved->next;
 
-        // Make the node after point backwards to the node before
-        // If there is no node after, update the tail
+        // Make the LinkedListNode after point backwards to the LinkedListNode before
+        // If there is no LinkedListNode after, update the tail
         if (toBeRemoved->next) toBeRemoved->next->prev = toBeRemoved->prev;
         else tail = toBeRemoved->prev;
     }
@@ -136,7 +136,7 @@ namespace lab6 {
 
         if (empty()) throw std::runtime_error("invalid split index " + std::to_string(index) + " for empty list");
 
-        Node *first = head;
+        DoublyLinkedListNode *first = head;
         for (unsigned i = 0; i < index; i++) {
             first = first->next;
             if (!first) throw std::runtime_error("invalid split index " + std::to_string(index) + " for list of size " + std::to_string(size()));
@@ -166,13 +166,13 @@ namespace lab6 {
         DoublyLinkedList list;
 
         // Navigate to where the split will occur
-        Node *first = head;
+        DoublyLinkedListNode *first = head;
         for (unsigned i = 0; i < indexFrom; i++) {
             first = first->next;
             if (!first) throw std::runtime_error("invalid split start index " + std::to_string(indexFrom) + " for list of size " + std::to_string(size()));
         }
 
-        Node *last = head;
+        DoublyLinkedListNode *last = head;
         for (unsigned i = 0; i < indexTo; i++) {
             last = last->next;
             if (!last) throw std::runtime_error("invalid split end index " + std::to_string(indexTo) + " for list of size " + std::to_string(size()));
@@ -183,14 +183,14 @@ namespace lab6 {
         list.tail = last;
 
         // If the set head is the list head, update the list head
-        // Otherwise, make the node before the set head point to forwards to the node after the set tail
+        // Otherwise, make the LinkedListNode before the set head point to forwards to the LinkedListNode after the set tail
         // Make the set head point backwards to nothing
         if (first == head) head = last->next;
         else first->prev->next = last->next;
         first->prev = nullptr;
 
         // If the set tail is the list tail, update the list tail
-        // Otherwise, make the node after the set tail point to backwards to the node before the set head
+        // Otherwise, make the LinkedListNode after the set tail point to backwards to the LinkedListNode before the set head
         // Make the set tail point forwards to nothing
         if (last == tail) tail = first->prev;
         else last->next->prev = first->prev;
@@ -207,21 +207,21 @@ namespace lab6 {
             return;
         }
 
-//        Node *beforeFirst, *first, *afterFirst;
+//        LinkedListNode *beforeFirst, *first, *afterFirst;
 //        first = head;
 //        for (unsigned i = 0; i < firstIndex; i++) {
 //            first = first->next;
-//            if (!first) throw std::runtime_error("invalid first swap index " + std::to_string(firstIndex) + " for list of size " + std::to_string(size()));
+//            if (!first) throw std::runtime_error("invalid first swap index " + std::to_string(firstIndex) + " for list of size " + std::toString(size()));
 //        }
 //        beforeFirst = first->prev;
 //        afterFirst = first->next;
 //
 //        unsigned gapSize = secondIndex - firstIndex;
-//        Node *beforeSecond, *second, *afterSecond;
+//        LinkedListNode *beforeSecond, *second, *afterSecond;
 //        second = first;
 //        for (unsigned i = 0; i < gapSize; i++) {
 //            second = second->next;
-//            if (!second) throw std::runtime_error("invalid second swap index " + std::to_string(secondIndex) + " for list of size " + std::to_string(size()));
+//            if (!second) throw std::runtime_error("invalid second swap index " + std::to_string(secondIndex) + " for list of size " + std::toString(size()));
 //        }
 //
 //        beforeSecond = second->prev;
@@ -239,8 +239,8 @@ namespace lab6 {
 //        first->next = afterSecond;
 //        afterSecond->prev = first;
 
-        int one = getValue(firstIndex);
-        int two = getValue(secondIndex);
+        int one = at(firstIndex);
+        int two = at(secondIndex);
 
         remove(firstIndex);
         remove(secondIndex - 1);
@@ -269,17 +269,10 @@ namespace lab6 {
         if (listSize == 0) return;
         for (unsigned current = 0; current < listSize - 1; current++) {
             unsigned smallest = current;
-            for (unsigned candidate = current + 1; candidate < listSize; candidate++) if (getValue(candidate) < getValue(smallest)) smallest = candidate;
+            for (unsigned candidate = current + 1; candidate < listSize; candidate++) if (at(candidate) <
+                                                                                          at(smallest)) smallest = candidate;
             swap(current, smallest);
         }
-    }
-
-    DoublyLinkedList DoublyLinkedList::operator+(const DoublyLinkedList &other) const {
-        DoublyLinkedList list(*this);
-
-        list += other;
-
-        return list;
     }
 
     DoublyLinkedList &DoublyLinkedList::operator=(const DoublyLinkedList &other) {
@@ -297,17 +290,25 @@ namespace lab6 {
         return *this;
     }
 
+    DoublyLinkedList DoublyLinkedList::operator+(const DoublyLinkedList &other) const {
+        DoublyLinkedList list(*this);
+
+        list += other;
+
+        return list;
+    }
+
     DoublyLinkedList &DoublyLinkedList::operator+=(const DoublyLinkedList &other) {
         // Copy the values from the other list to the end of this list
-        for (Node *currentNode = other.head; currentNode != nullptr; currentNode = currentNode->next) append(currentNode->getValue());
+        for (DoublyLinkedListNode *currentNode = other.head; currentNode != nullptr; currentNode = currentNode->next) append(currentNode->getValue());
 
         return *this;
     }
 
-    bool DoublyLinkedList::operator==(const DoublyLinkedList &other) {
+    bool DoublyLinkedList::operator==(const DoublyLinkedList &other) const {
         // Check for difference in value
-        Node* leftCurrent = head;
-        Node* rightCurrent = other.head;
+        DoublyLinkedListNode* leftCurrent = head;
+        DoublyLinkedListNode* rightCurrent = other.head;
         while (leftCurrent != nullptr && rightCurrent != nullptr) {
             if ((leftCurrent->getValue()) != (rightCurrent->getValue())) return false;
 
@@ -320,21 +321,21 @@ namespace lab6 {
         else return false;
     }
 
-    std::ostream &operator<<(std::ostream &stream, DoublyLinkedList &list) {
-        stream << "NULL <- ";
-        for (Node *value = list.head; value != nullptr; value = value->next) {
-            stream << std::to_string(value->getValue());
-            if (value->next != nullptr) stream << " <-> ";
-        }
-        stream << " -> NULL";
-
-        return stream;
-    }
-
     std::istream &operator>>(std::istream &stream, DoublyLinkedList &list) {
         int input;
         stream >> input;
         list.append(input);
+
+        return stream;
+    }
+
+    std::ostream &operator<<(std::ostream &stream, const DoublyLinkedList &list) {
+        stream << "NULL <- ";
+        for (DoublyLinkedListNode *value = list.head; value != nullptr; value = value->next) {
+            stream << std::to_string(value->getValue());
+            if (value->next != nullptr) stream << " <-> ";
+        }
+        stream << " -> NULL";
 
         return stream;
     }

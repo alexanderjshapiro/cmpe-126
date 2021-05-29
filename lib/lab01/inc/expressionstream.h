@@ -1,36 +1,30 @@
-#ifndef CMPE126S18_LABS_STSTRING_H
-#define CMPE126S18_LABS_STSTRING_H
+#ifndef EXPRESSIONSTREAM_H
+#define EXPRESSIONSTREAM_H
 
 #include <string>
 
 namespace lab1 {
-    class expressionstream {
+    class ExpressionStream {
     private:
         std::string buffer;
-        std::string::iterator current_pos;
-        std::string::iterator next_position;
+        std::string::iterator currentPosition;
+        std::string::iterator nextPosition;
 
-        void skip_white_space();
-
-        std::string get_number();
-
-        bool is_negative();
+        void skipWhitespace();
+        std::string getNumber();
+        bool negative();
 
     public:
-        explicit expressionstream(const std::string &string_in);
+        explicit ExpressionStream(std::string input);
 
-        std::string get_next_token();
+        std::string parseNextToken();
+        std::string parseCurrentToken();
 
-        std::string get_current_token();
-
-        bool next_token_is_int();
-
-        bool next_token_is_op();
-
-        bool next_token_is_paren_open();
-
-        bool next_token_is_paren_close();
+        bool nextTokenIsInteger();
+        bool nextTokenIsOperator();
+        bool nextTokenIsOpenParentheses();
+        bool nextTokenIsCloseParentheses();
     };
 }
 
-#endif //CMPE126S18_LABS_STSTRING_H
+#endif // EXPRESSIONSTREAM_H

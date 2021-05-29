@@ -18,16 +18,16 @@ As you are writing your functions, read the instructions and think of how you wo
 
 You may need to create auxiliary functions to complete tasks, or to avoid copy and pasting repetitive code. Do not make these class functions. These should only appear in the .cpp file
 
-Don't move **data** in the Node from *private* to *public*. We placed this here deliberately. For all of the functions and classes, don't change anything.
+Don't move **data** in the LinkedListNode from *private* to *public*. We placed this here deliberately. For all of the functions and classes, don't change anything.
 
 ### Lab Functions that you haven't seen before
-`void swap(unsigned position_1, unsigned position_2)`: Swap the Node located at position 1 with the Node located at position 2.
+`void swap(unsigned position_1, unsigned position_2)`: Swap the LinkedListNode located at position 1 with the LinkedListNode located at position 2.
  
 `void swapSet(unsigned location_1_start, unsigned location_1_end, unsigned location_2_start, unsigned location_2_end)`: Swap the subset of nodes starting at position_1_start and ending at position_1_end with the nodes starting at position_2_start to position_2_end. These locations are **inclusive.**
 
 `DoublyLinkedList DoublyLinkedList::split(unsigned position)`: Split the doubly linked list at position, with position being the priority_head of the second linked list. Truncate the original linked list and return the split off linked list.
 
-`void DoublyLinkedList::insert(int input, unsigned int location = 0)`: This inserts a Node *at* the location provided. Note that if you don't give it a location to insert the Node, it will insert it at the beginning of the linked_list.
+`void DoublyLinkedList::insert(int input, unsigned int location = 0)`: This inserts a LinkedListNode *at* the location provided. Note that if you don't give it a location to insert the LinkedListNode, it will insert it at the beginning of the LinkedList.
 
 `DoublyLinkedList operator+(const DoublyLinkedList &rhs) const`: Append the right doubly linked list to the right doubly linked list and return that new doubly linked list object.
 
@@ -44,4 +44,4 @@ Ask questions on slack about functions that you don't understand. For the most p
 - Wikipedia article on [Insertion Sort](https://en.wikipedia.org/wiki/Insertion_sort)
 - Some of these functions are basically the same. Don't rewrite or paste code, just call the function with the altered inputs.
 - Keep track of your edge cases: empty, 1 item, 2+ items
-- You need to update 3 nodes every time you insert or remove: the previous Node, the selected Node, and the next Node.
+- You need to update 3 nodes every time you insert or remove: the previous LinkedListNode, the selected LinkedListNode, and the next LinkedListNode.

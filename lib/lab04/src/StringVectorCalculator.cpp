@@ -1,6 +1,4 @@
-#include <string>
-#include <iostream>
-#include "calculator.h"
+#include "StringVectorCalculator.h"
 
 namespace lab4 {
     bool isNumber(std::string string);
@@ -13,38 +11,38 @@ namespace lab4 {
 
     unsigned priorityOf(const std::string &theOperator);
 
-    void calculator::parse_to_infix(std::string &input_expression) {
-        infix_expression = lab3::fifo();
-        lab1::expressionstream stream(input_expression);
+    void StringVectorCalculator::toInfix(std::string &string) {
+        infix = lab3::StringVectorQueue();
+        lab1::ExpressionStream stream(string);
 
-        // Loop through each token in input_expression until none remain
-        std::string token = stream.get_current_token();
+        // Loop through each token in string until none remain
+        std::string token = stream.parseCurrentToken();
         while (!token.empty()) {
             // Ensure token is a number, operator, or parentheses
             if (isInvalid(token)) throw std::runtime_error("token \"" + token + "\" is invalid");
 
-            infix_expression.enqueue(token);
-            token = stream.get_next_token();
+            infix.enqueue(token);
+            token = stream.parseNextToken();
         }
 
-        convert_to_postfix(infix_expression);
+        toPostfix(infix);
     }
 
-    void calculator::convert_to_postfix(lab3::fifo infix_expression) {
-        postfix_expression = lab3::fifo();
+    void StringVectorCalculator::toPostfix(lab3::StringVectorQueue infixExpression) {
+        postfix = lab3::StringVectorQueue();
         // Shunting-yard algorithm
-        lab3::lifo operatorStack;
+        lab3::StringVectorStack operatorStack;
 
-        // Loop through each element in infix_expression until none remain
-        while (!infix_expression.is_empty()) {
-            std::string current = infix_expression.top();
+        // Loop through each element in infix until none remain
+        while (!infixExpression.empty()) {
+            std::string current = infixExpression.front();
             if (isNumber(current)) {
-                postfix_expression.enqueue(current);
+                postfix.enqueue(current);
             } else if (isOperator(current)) {
                 // If top of operator stack has higher priority than current element, pop from stack until it is not so
-                while (!operatorStack.is_empty() && priorityOf(operatorStack.top()) >= priorityOf(current) &&
+                while (!operatorStack.empty() && priorityOf(operatorStack.top()) >= priorityOf(current) &&
                        operatorStack.top() != "(") {
-                    postfix_expression.enqueue(operatorStack.top());
+                    postfix.enqueue(operatorStack.top());
                     operatorStack.pop();
                 }
 
@@ -54,11 +52,11 @@ namespace lab4 {
             } else if (current == ")") {
                 // Pop operators from the stack until we find the opening parentheses
                 while (operatorStack.top() != "(") {
-                    postfix_expression.enqueue(operatorStack.top());
+                    postfix.enqueue(operatorStack.top());
                     operatorStack.pop();
 
                     // If we run out of elements before finding the opening parentheses, the parentheses are mismatched
-                    if (operatorStack.is_empty()) throw std::runtime_error("mismatched parentheses");
+                    if (operatorStack.empty()) throw std::runtime_error("mismatched parentheses");
                 }
 
                 // Remove ( from the operator stack
@@ -66,35 +64,35 @@ namespace lab4 {
             }
 
             // Move on to the next number or operator
-            infix_expression.dequeue();
+            infixExpression.dequeue();
         }
 
         // Pop remaining operators from stack
-        while (!operatorStack.is_empty()) {
-            postfix_expression.enqueue(operatorStack.top());
+        while (!operatorStack.empty()) {
+            postfix.enqueue(operatorStack.top());
             operatorStack.pop();
         }
     }
 
-    calculator::calculator() = default;
+    StringVectorCalculator::StringVectorCalculator() = default;
 
-    calculator::calculator(std::string &input_expression) {
-        parse_to_infix(input_expression);
+    StringVectorCalculator::StringVectorCalculator(std::string &string) {
+        toInfix(string);
     }
 
-    std::istream &operator>>(std::istream &stream, calculator &RHS) {
-        std::string input = "";
+    std::istream &operator>>(std::istream &stream, StringVectorCalculator &RHS) {
+        std::string input;
         getline(stream, input);
-        RHS.parse_to_infix(input);
+        RHS.toInfix(input);
         return stream;
     }
 
-    int lab4::calculator::calculate() {
-        lab3::fifo postfix(postfix_expression);
-        lab3::lifo calculationStack;
+    int lab4::StringVectorCalculator::calculate() {
+        lab3::StringVectorQueue postfixExpression(postfix);
+        lab3::StringVectorStack calculationStack;
 
-        while (!postfix.is_empty()) {
-            std::string current = postfix.top();
+        while (!postfixExpression.empty()) {
+            std::string current = postfixExpression.front();
             if (isOperator(current)) {
                 int second = std::stoi(calculationStack.top());
                 calculationStack.pop();
@@ -113,28 +111,28 @@ namespace lab4 {
             } else {
                 calculationStack.push(current);
             }
-            postfix.dequeue();
+            postfixExpression.dequeue();
         }
 
         return std::stoi(calculationStack.top());
     }
 
-    std::ostream &operator<<(std::ostream &stream, calculator &RHS) {
-        lab3::fifo infix(RHS.infix_expression);
-        lab3::fifo postfix(RHS.postfix_expression);
+    std::ostream &operator<<(std::ostream &stream, StringVectorCalculator &calculator) {
+        lab3::StringVectorQueue infix(calculator.infix);
+        lab3::StringVectorQueue postfix(calculator.postfix);
 
         stream << std::string("Infix: ");
         while (infix.size() > 1) {
-            stream << infix.top() + ",";
+            stream << infix.front() + ",";
             infix.dequeue();
         }
-        stream << infix.top() + "\nPostfix: ";
+        stream << infix.front() + "\nPostfix: ";
 
         while (postfix.size() > 1) {
-            stream << postfix.top() + ",";
+            stream << postfix.front() + ",";
             postfix.dequeue();
         }
-        stream << postfix.top();
+        stream << postfix.front();
 
         return stream;
     }

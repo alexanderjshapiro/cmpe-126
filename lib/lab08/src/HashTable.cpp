@@ -1,17 +1,16 @@
-#include <cmath>
-#include "../inc/HashTable.h"
+#include "HashTable.h"
 
 namespace lab8 {
-    unsigned HashTable::DJB2(const std::string& to_hash) {
+    unsigned HashTable::hashDJB2(const std::string& string) {
         unsigned int hash = 5381;
-        for (char c : to_hash) hash = ((hash << 5) + hash) + c;
+        for (char c : string) hash = ((hash << 5) + hash) + c;
         return hash;
     }
 
-    unsigned HashTable::BKDR(const std::string& to_hash) {
+    unsigned HashTable::hashBKDR(const std::string& string) {
         unsigned int seed = 131;
         unsigned int hash = 0;
-        for (char c : to_hash) hash = (hash * seed) + c;
+        for (char c : string) hash = (hash * seed) + c;
         return hash;
     }
 
@@ -30,7 +29,7 @@ namespace lab8 {
                 break;
             }
         }
-        hashTableArray = new key_value[maxSize];
+        hashTableArray = new HashTableEntry[maxSize];
         currentSize = 0;
 
         // Each value must be reinserted since the new maxSize changes the hash index
@@ -44,7 +43,7 @@ namespace lab8 {
         else throw std::runtime_error("probingTechnique technique '" + std::to_string(probingTechnique) + "' is invalid (valid techniques: 'l' for linear, 'q' for quadratic, 'd' for double");
 
         maxSize = PRIMES[0];
-        hashTableArray = new key_value[maxSize];
+        hashTableArray = new HashTableEntry[maxSize];
         currentSize = 0;
     }
 
@@ -56,12 +55,12 @@ namespace lab8 {
         if (key.empty()) throw std::runtime_error("key cannot be empty");
         if (value == 0) throw std::runtime_error("value cannot be 0");
 
-        unsigned hash1 = DJB2(key);
+        unsigned hash1 = hashDJB2(key);
         for (unsigned attempt = 0; attempt < maxSize; attempt++) {
             unsigned index;
             if (probingTechnique == 'l') index = (hash1 + attempt) % maxSize;
             else if (probingTechnique == 'q') index = (hash1 + unsigned(pow(attempt, 2))) % maxSize;
-            else index = (hash1 + attempt * BKDR(key)) % maxSize;
+            else index = (hash1 + attempt * hashBKDR(key)) % maxSize;
 
             if (hashTableArray[index].key.empty()) {
                 hashTableArray[index].key = key;
@@ -79,12 +78,12 @@ namespace lab8 {
     bool HashTable::inTable(const std::string &key) {
         if (key.empty()) throw std::runtime_error("key cannot be empty");
 
-        unsigned hash1 = DJB2(key);
+        unsigned hash1 = hashDJB2(key);
         for (unsigned attempt = 0; attempt < maxSize; attempt++) {
             unsigned index;
             if (probingTechnique == 'l') index = (hash1 + attempt) % maxSize;
             else if (probingTechnique == 'q') index = (hash1 + unsigned(pow(attempt, 2))) % maxSize;
-            else index = (hash1 + attempt * BKDR(key)) % maxSize;
+            else index = (hash1 + attempt * hashBKDR(key)) % maxSize;
 
             if (hashTableArray[index].key == key) return true;
         }
@@ -94,12 +93,12 @@ namespace lab8 {
     int HashTable::get(const std::string &key) {
         if (key.empty()) throw std::runtime_error("key cannot be empty");
 
-        unsigned hash1 = DJB2(key);
+        unsigned hash1 = hashDJB2(key);
         for (unsigned attempt = 0; attempt < maxSize; attempt++) {
             unsigned index;
             if (probingTechnique == 'l') index = (hash1 + attempt) % maxSize;
             else if (probingTechnique == 'q') index = (hash1 + unsigned(pow(attempt, 2))) % maxSize;
-            else index = (hash1 + attempt * BKDR(key)) % maxSize;
+            else index = (hash1 + attempt * hashBKDR(key)) % maxSize;
 
             if (hashTableArray[index].key == key) return hashTableArray[index].value;
         }
@@ -110,12 +109,12 @@ namespace lab8 {
         if (key.empty()) throw std::runtime_error("key cannot be empty");
         if (value == 0) throw std::runtime_error("value cannot be 0");
 
-        unsigned hash1 = DJB2(key);
+        unsigned hash1 = hashDJB2(key);
         for (unsigned attempt = 0; attempt < maxSize; attempt++) {
             unsigned index;
             if (probingTechnique == 'l') index = (hash1 + attempt) % maxSize;
             else if (probingTechnique == 'q') index = (hash1 + unsigned(pow(attempt, 2))) % maxSize;
-            else index = (hash1 + attempt * BKDR(key)) % maxSize;
+            else index = (hash1 + attempt * hashBKDR(key)) % maxSize;
 
             if (hashTableArray[index].key == key) {
                 hashTableArray[index].value = value;
@@ -128,12 +127,12 @@ namespace lab8 {
     void HashTable::remove(const std::string &key) {
         if (key.empty()) throw std::runtime_error("key cannot be empty");
 
-        unsigned hash1 = DJB2(key);
+        unsigned hash1 = hashDJB2(key);
         for (unsigned attempt = 0; attempt < maxSize; attempt++) {
             unsigned index;
             if (probingTechnique == 'l') index = (hash1 + attempt) % maxSize;
             else if (probingTechnique == 'q') index = (hash1 + unsigned(pow(attempt, 2))) % maxSize;
-            else index = (hash1 + attempt * BKDR(key)) % maxSize;
+            else index = (hash1 + attempt * hashBKDR(key)) % maxSize;
 
             if (hashTableArray[index].key == key) {
                 hashTableArray[index].key.clear();

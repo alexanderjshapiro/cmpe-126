@@ -358,10 +358,10 @@ TEST_F(SortsTest, quickSort_doesNotCrash) {
 
 TEST_F(SortsTest, quickSort_populatedLists_sortsValues) {
     lab6::quickSort(*listSmall, 0, listSmall->size() - 1);
-    for (int i = 0; i < 10; i++) EXPECT_EQ(i, listSmall->getValue(i));
+    for (int i = 0; i < 10; i++) EXPECT_EQ(i, listSmall->at(i));
 
     lab6::quickSort(*listLarge, 0, listLarge->size() - 1);
-    for (int i = 0; i < 3000; i++) EXPECT_EQ(i, listLarge->getValue(i));
+    for (int i = 0; i < 3000; i++) EXPECT_EQ(i, listLarge->at(i));
 }
 
 TEST_F(SortsTest, quickSort_emptyList_doesNothing) {
@@ -375,10 +375,10 @@ TEST_F(SortsTest, mergeSort_doesNotCrash) {
 
 TEST_F(SortsTest, mergeSort_populatedLists_sortsValues) {
     lab6::mergeSort(*listSmall);
-    for (int i = 0; i < 10; i++) EXPECT_EQ(i, listSmall->getValue(i));
+    for (int i = 0; i < 10; i++) EXPECT_EQ(i, listSmall->at(i));
 
     lab6::mergeSort(*listLarge);
-    for (int i = 0; i < 3000; i++) EXPECT_EQ(i, listLarge->getValue(i));
+    for (int i = 0; i < 3000; i++) EXPECT_EQ(i, listLarge->at(i));
 }
 
 TEST_F(SortsTest, mergeSort_emptyList_doesNothing) {

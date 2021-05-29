@@ -1,10 +1,10 @@
 #include "gtest/gtest.h"
-#include "stringVector.h"
+#include "StringVector.h"
 
 class StringVectorTest : public ::testing::Test {
 protected:
     virtual void SetUp() {
-        stringVectorUT = new lab2::stringVector;
+        stringVectorUT = new lab2::StringVector;
     }
 
     virtual void TearDown() {
@@ -12,11 +12,11 @@ protected:
     }
 
 public:
-    lab2::stringVector *stringVectorUT;
+    lab2::StringVector *stringVectorUT;
 };
 
 TEST(CrashTest, stringVector_crashTest) {
-    auto *stringVectorUT = new lab2::stringVector;
+    auto *stringVectorUT = new lab2::StringVector;
     delete stringVectorUT;
 }
 
@@ -182,7 +182,7 @@ TEST_F(StringVectorTest, equalsOperator_hardCopiesData) {
     EXPECT_EQ(3, stringVectorUT->capacity());
     EXPECT_EQ(2, stringVectorUT->size());
 
-    auto *otherStringVectorUT = new lab2::stringVector();
+    auto *otherStringVectorUT = new lab2::StringVector();
     EXPECT_EQ(0, otherStringVectorUT->capacity());
     EXPECT_EQ(0, otherStringVectorUT->size());
 
@@ -280,7 +280,7 @@ TEST_F(StringVectorTest, sort_sortsDataValues) {
     EXPECT_EQ("xeon", stringVectorUT->operator[](25));
     EXPECT_EQ("yellow", stringVectorUT->operator[](26));
 
-    stringVectorUT = new lab2::stringVector();
+    stringVectorUT = new lab2::StringVector();
     stringVectorUT->append("apple");
     stringVectorUT->append("Carousel");
     stringVectorUT->append("Apply");

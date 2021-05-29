@@ -1,15 +1,15 @@
 #include "gtest/gtest.h"
-#include "linked_list.h"
-#include "queue.h"
-#include "stack.h"
-#include "fancy_calculator.h"
+#include "LinkedList.h"
+#include "LinkedListQueue.h"
+#include "LinkedListStack.h"
+#include "LinkedListCalculator.h"
 
 // Linked List Tests
-class LinkedListTest : public ::testing::Test {
+class linked_listTest : public ::testing::Test {
 
 protected:
     virtual void SetUp() {
-        linkedListUT = new lab5::linked_list;
+        linkedListUT = new lab5::LinkedList;
     }
 
     virtual void TearDown() {
@@ -17,101 +17,101 @@ protected:
     }
 
 public:
-    lab5::linked_list *linkedListUT;
+    lab5::LinkedList *linkedListUT;
 };
 
 TEST(CrashTest, linkedList_crashTest) {
-    auto *linkedListUT = new lab5::linked_list;
+    auto *linkedListUT = new lab5::LinkedList;
     delete linkedListUT;
 }
 
-TEST_F(LinkedListTest, getValueAt_doesNotCrash) {
+TEST_F(linked_listTest, getValueAt_doesNotCrash) {
     linkedListUT->append("foo");
-    linkedListUT->getValueAt(0);
+    linkedListUT->at(0);
 }
 
-TEST_F(LinkedListTest, getValueAt_getsDataFromNodeAtLocation) {
+TEST_F(linked_listTest, getValueAt_getsDataFromNodeAtLocation) {
     linkedListUT->append("foo");
-    EXPECT_EQ("foo", linkedListUT->getValueAt(0));
+    EXPECT_EQ("foo", linkedListUT->at(0));
 
     linkedListUT->insert("bar", 1);
-    EXPECT_EQ("foo", linkedListUT->getValueAt(0));
-    EXPECT_EQ("bar", linkedListUT->getValueAt(1));
+    EXPECT_EQ("foo", linkedListUT->at(0));
+    EXPECT_EQ("bar", linkedListUT->at(1));
 
     linkedListUT->append("baz");
-    EXPECT_EQ("foo", linkedListUT->getValueAt(0));
-    EXPECT_EQ("bar", linkedListUT->getValueAt(1));
-    EXPECT_EQ("baz", linkedListUT->getValueAt(2));
+    EXPECT_EQ("foo", linkedListUT->at(0));
+    EXPECT_EQ("bar", linkedListUT->at(1));
+    EXPECT_EQ("baz", linkedListUT->at(2));
 
     linkedListUT->remove(0);
-    EXPECT_EQ("bar", linkedListUT->getValueAt(0));
-    EXPECT_EQ("baz", linkedListUT->getValueAt(1));
+    EXPECT_EQ("bar", linkedListUT->at(0));
+    EXPECT_EQ("baz", linkedListUT->at(1));
 
     linkedListUT->append("qux");
-    EXPECT_EQ("bar", linkedListUT->getValueAt(0));
-    EXPECT_EQ("baz", linkedListUT->getValueAt(1));
-    EXPECT_EQ("qux", linkedListUT->getValueAt(2));
+    EXPECT_EQ("bar", linkedListUT->at(0));
+    EXPECT_EQ("baz", linkedListUT->at(1));
+    EXPECT_EQ("qux", linkedListUT->at(2));
 
     linkedListUT->remove(2);
-    EXPECT_EQ("bar", linkedListUT->getValueAt(0));
-    EXPECT_EQ("baz", linkedListUT->getValueAt(1));
+    EXPECT_EQ("bar", linkedListUT->at(0));
+    EXPECT_EQ("baz", linkedListUT->at(1));
 
     linkedListUT->insert("quux", 2);
-    EXPECT_EQ("bar", linkedListUT->getValueAt(0));
-    EXPECT_EQ("baz", linkedListUT->getValueAt(1));
-    EXPECT_EQ("quux", linkedListUT->getValueAt(2));
+    EXPECT_EQ("bar", linkedListUT->at(0));
+    EXPECT_EQ("baz", linkedListUT->at(1));
+    EXPECT_EQ("quux", linkedListUT->at(2));
 }
 
-TEST_F(LinkedListTest, getValueAt_invalidIndex_crashes) {
-    EXPECT_ANY_THROW(linkedListUT->getValueAt(0));
-    EXPECT_ANY_THROW(linkedListUT->getValueAt(10));
-    EXPECT_ANY_THROW(linkedListUT->getValueAt(-1));
+TEST_F(linked_listTest, getValueAt_invalidIndex_crashes) {
+    EXPECT_ANY_THROW(linkedListUT->at(0));
+    EXPECT_ANY_THROW(linkedListUT->at(10));
+    EXPECT_ANY_THROW(linkedListUT->at(-1));
 
     linkedListUT->append("foo");
     linkedListUT->insert("bar", 1);
     linkedListUT->remove(0);
 
-    EXPECT_NO_THROW(linkedListUT->getValueAt(0));
-    EXPECT_ANY_THROW(linkedListUT->getValueAt(1));
+    EXPECT_NO_THROW(linkedListUT->at(0));
+    EXPECT_ANY_THROW(linkedListUT->at(1));
 }
 
-TEST_F(LinkedListTest, append_doesNotCrash) {
+TEST_F(linked_listTest, append_doesNotCrash) {
     linkedListUT->append("foo");
 }
 
-TEST_F(LinkedListTest, append_addsDataToEnd) {
+TEST_F(linked_listTest, append_addsDataToEnd) {
     linkedListUT->append("foo");
-    EXPECT_EQ("foo", linkedListUT->getValueAt(0));
+    EXPECT_EQ("foo", linkedListUT->at(0));
 
     linkedListUT->append("bar");
-    EXPECT_EQ("foo", linkedListUT->getValueAt(0));
-    EXPECT_EQ("bar", linkedListUT->getValueAt(1));
+    EXPECT_EQ("foo", linkedListUT->at(0));
+    EXPECT_EQ("bar", linkedListUT->at(1));
 
     linkedListUT->append("baz");
-    EXPECT_EQ("foo", linkedListUT->getValueAt(0));
-    EXPECT_EQ("bar", linkedListUT->getValueAt(1));
-    EXPECT_EQ("baz", linkedListUT->getValueAt(2));
+    EXPECT_EQ("foo", linkedListUT->at(0));
+    EXPECT_EQ("bar", linkedListUT->at(1));
+    EXPECT_EQ("baz", linkedListUT->at(2));
 }
 
-TEST_F(LinkedListTest, insert_doesNotCrash) {
+TEST_F(linked_listTest, insert_doesNotCrash) {
     linkedListUT->insert("foo");
 }
 
-TEST_F(LinkedListTest, insert_addsDataAtIndex) {
+TEST_F(linked_listTest, insert_addsDataAtIndex) {
     linkedListUT->insert("foo", 0);
-    EXPECT_EQ("foo", linkedListUT->getValueAt(0));
+    EXPECT_EQ("foo", linkedListUT->at(0));
 
     linkedListUT->insert("bar", 1);
-    EXPECT_EQ("foo", linkedListUT->getValueAt(0));
-    EXPECT_EQ("bar", linkedListUT->getValueAt(1));
+    EXPECT_EQ("foo", linkedListUT->at(0));
+    EXPECT_EQ("bar", linkedListUT->at(1));
 
     linkedListUT->insert("baz", 0);
-    EXPECT_EQ("baz", linkedListUT->getValueAt(0));
-    EXPECT_EQ("foo", linkedListUT->getValueAt(1));
-    EXPECT_EQ("bar", linkedListUT->getValueAt(2));
+    EXPECT_EQ("baz", linkedListUT->at(0));
+    EXPECT_EQ("foo", linkedListUT->at(1));
+    EXPECT_EQ("bar", linkedListUT->at(2));
 }
 
-TEST_F(LinkedListTest, insert_atInvalidIndex_crashes) {
+TEST_F(linked_listTest, insert_atInvalidIndex_crashes) {
     EXPECT_ANY_THROW(linkedListUT->insert("foo", 1));
     EXPECT_ANY_THROW(linkedListUT->insert("foo", -1));
 
@@ -122,30 +122,30 @@ TEST_F(LinkedListTest, insert_atInvalidIndex_crashes) {
     EXPECT_ANY_THROW(linkedListUT->insert("foo", 4));
 }
 
-TEST_F(LinkedListTest, remove_doesNotCrash) {
+TEST_F(linked_listTest, remove_doesNotCrash) {
     linkedListUT->append("foo");
     linkedListUT->remove(0);
 }
 
-TEST_F(LinkedListTest, remove_removesDataAtIndex) {
+TEST_F(linked_listTest, remove_removesDataAtIndex) {
     linkedListUT->append("foo");
     linkedListUT->append("bar");
     linkedListUT->append("baz");
-    ASSERT_EQ("foo", linkedListUT->getValueAt(0));
-    ASSERT_EQ("bar", linkedListUT->getValueAt(1));
-    ASSERT_EQ("baz", linkedListUT->getValueAt(2));
+    ASSERT_EQ("foo", linkedListUT->at(0));
+    ASSERT_EQ("bar", linkedListUT->at(1));
+    ASSERT_EQ("baz", linkedListUT->at(2));
 
     linkedListUT->remove(2);
-    EXPECT_EQ("foo", linkedListUT->getValueAt(0));
-    EXPECT_EQ("bar", linkedListUT->getValueAt(1));
-    EXPECT_ANY_THROW(linkedListUT->getValueAt(2));
+    EXPECT_EQ("foo", linkedListUT->at(0));
+    EXPECT_EQ("bar", linkedListUT->at(1));
+    EXPECT_ANY_THROW(linkedListUT->at(2));
 
     linkedListUT->remove(0);
-    EXPECT_EQ("bar", linkedListUT->getValueAt(0));
-    EXPECT_ANY_THROW(linkedListUT->getValueAt(1));
+    EXPECT_EQ("bar", linkedListUT->at(0));
+    EXPECT_ANY_THROW(linkedListUT->at(1));
 }
 
-TEST_F(LinkedListTest, remove_atInvalidIndex_crashes) {
+TEST_F(linked_listTest, remove_atInvalidIndex_crashes) {
     EXPECT_ANY_THROW(linkedListUT->remove(0));
     EXPECT_ANY_THROW(linkedListUT->remove(10));
     EXPECT_ANY_THROW(linkedListUT->remove(-1));
@@ -157,61 +157,61 @@ TEST_F(LinkedListTest, remove_atInvalidIndex_crashes) {
     EXPECT_ANY_THROW(linkedListUT->remove(3));
 }
 
-TEST_F(LinkedListTest, isEmpty_afterDefaultConstructor_true) {
-    EXPECT_TRUE(linkedListUT->isEmpty());
+TEST_F(linked_listTest, isEmpty_afterDefaultConstructor_true) {
+    EXPECT_TRUE(linkedListUT->empty());
 }
 
-TEST_F(LinkedListTest, size_afterDefaultConstructor_0) {
-    EXPECT_EQ(0, linkedListUT->listSize());
+TEST_F(linked_listTest, size_afterDefaultConstructor_0) {
+    EXPECT_EQ(0, linkedListUT->size());
 }
 
-TEST_F(LinkedListTest, isEmptyAndSize_tracksAppendsAndInsertionsAndRemovals) {
+TEST_F(linked_listTest, isEmptyAndSize_tracksAppendsAndInsertionsAndRemovals) {
     linkedListUT->append("foo");
-    EXPECT_FALSE(linkedListUT->isEmpty());
-    EXPECT_EQ(1, linkedListUT->listSize());
+    EXPECT_FALSE(linkedListUT->empty());
+    EXPECT_EQ(1, linkedListUT->size());
 
     linkedListUT->insert("bar", 1);
-    EXPECT_FALSE(linkedListUT->isEmpty());
-    EXPECT_EQ(2, linkedListUT->listSize());
+    EXPECT_FALSE(linkedListUT->empty());
+    EXPECT_EQ(2, linkedListUT->size());
 
     linkedListUT->append("baz");
-    EXPECT_FALSE(linkedListUT->isEmpty());
-    EXPECT_EQ(3, linkedListUT->listSize());
+    EXPECT_FALSE(linkedListUT->empty());
+    EXPECT_EQ(3, linkedListUT->size());
 
     linkedListUT->remove(0);
-    EXPECT_FALSE(linkedListUT->isEmpty());
-    EXPECT_EQ(2, linkedListUT->listSize());
+    EXPECT_FALSE(linkedListUT->empty());
+    EXPECT_EQ(2, linkedListUT->size());
 
     linkedListUT->append("qux");
-    EXPECT_FALSE(linkedListUT->isEmpty());
-    EXPECT_EQ(3, linkedListUT->listSize());
+    EXPECT_FALSE(linkedListUT->empty());
+    EXPECT_EQ(3, linkedListUT->size());
 
     linkedListUT->remove(2);
-    EXPECT_FALSE(linkedListUT->isEmpty());
-    EXPECT_EQ(2, linkedListUT->listSize());
+    EXPECT_FALSE(linkedListUT->empty());
+    EXPECT_EQ(2, linkedListUT->size());
 
     linkedListUT->insert("quux", 2);
-    EXPECT_FALSE(linkedListUT->isEmpty());
-    EXPECT_EQ(3, linkedListUT->listSize());
+    EXPECT_FALSE(linkedListUT->empty());
+    EXPECT_EQ(3, linkedListUT->size());
 
     linkedListUT->remove(0);
     linkedListUT->remove(0);
     linkedListUT->remove(0);
-    EXPECT_TRUE(linkedListUT->isEmpty());
-    EXPECT_EQ(0, linkedListUT->listSize());
+    EXPECT_TRUE(linkedListUT->empty());
+    EXPECT_EQ(0, linkedListUT->size());
 }
 
-TEST_F(LinkedListTest, insertionOperator_outputsContents) {
+TEST_F(linked_listTest, insertionOperator_outputsContents) {
     std::stringstream("foo") >> *linkedListUT;
     std::stringstream("bar") >> *linkedListUT;
     std::stringstream("baz") >> *linkedListUT;
 
-    EXPECT_EQ("foo", linkedListUT->getValueAt(0));
-    EXPECT_EQ("bar", linkedListUT->getValueAt(1));
-    EXPECT_EQ("baz", linkedListUT->getValueAt(2));
+    EXPECT_EQ("foo", linkedListUT->at(0));
+    EXPECT_EQ("bar", linkedListUT->at(1));
+    EXPECT_EQ("baz", linkedListUT->at(2));
 }
 
-TEST_F(LinkedListTest, extractionOperator_inputsContents) {
+TEST_F(linked_listTest, extractionOperator_inputsContents) {
     linkedListUT->append("foo");
     linkedListUT->append("bar");
     linkedListUT->append("baz");
@@ -222,91 +222,91 @@ TEST_F(LinkedListTest, extractionOperator_inputsContents) {
     EXPECT_EQ("foo -> bar -> baz -> NULL", testing::internal::GetCapturedStdout());
 }
 
-TEST_F(LinkedListTest, copyConstructor_hardCopiesNodes) {
+TEST_F(linked_listTest, copyConstructor_hardCopiesNodes) {
     linkedListUT->append("foo");
     linkedListUT->append("bar");
     linkedListUT->append("baz");
 
-    auto otherLinkedListUT = new lab5::linked_list(*linkedListUT);
-    EXPECT_EQ("foo", linkedListUT->getValueAt(0));
-    EXPECT_EQ("foo", otherLinkedListUT->getValueAt(0));
+    auto otherlinked_listUT = new lab5::LinkedList(*linkedListUT);
+    EXPECT_EQ("foo", linkedListUT->at(0));
+    EXPECT_EQ("foo", otherlinked_listUT->at(0));
 
     linkedListUT->remove(0);
-    EXPECT_EQ("bar", linkedListUT->getValueAt(0));
-    EXPECT_EQ("foo", otherLinkedListUT->getValueAt(0));
+    EXPECT_EQ("bar", linkedListUT->at(0));
+    EXPECT_EQ("foo", otherlinked_listUT->at(0));
 
-    otherLinkedListUT->remove(0);
-    EXPECT_EQ("bar", linkedListUT->getValueAt(0));
-    EXPECT_EQ("bar", otherLinkedListUT->getValueAt(0));
+    otherlinked_listUT->remove(0);
+    EXPECT_EQ("bar", linkedListUT->at(0));
+    EXPECT_EQ("bar", otherlinked_listUT->at(0));
 
     linkedListUT->insert("qux", 0);
-    EXPECT_EQ("qux", linkedListUT->getValueAt(0));
-    EXPECT_EQ("bar", otherLinkedListUT->getValueAt(0));
+    EXPECT_EQ("qux", linkedListUT->at(0));
+    EXPECT_EQ("bar", otherlinked_listUT->at(0));
 
-    otherLinkedListUT->insert("qux", 0);
-    EXPECT_EQ("qux", linkedListUT->getValueAt(0));
-    EXPECT_EQ("qux", otherLinkedListUT->getValueAt(0));
+    otherlinked_listUT->insert("qux", 0);
+    EXPECT_EQ("qux", linkedListUT->at(0));
+    EXPECT_EQ("qux", otherlinked_listUT->at(0));
 }
 
-TEST_F(LinkedListTest, copyConstructor_selfAssignment_doesNotChangeNodes) {
+TEST_F(linked_listTest, copyConstructor_selfAssignment_doesNotChangeNodes) {
     linkedListUT->append("foo");
     linkedListUT->append("bar");
     linkedListUT->append("baz");
 
-    linkedListUT = new lab5::linked_list(*linkedListUT);
-    EXPECT_EQ("foo", linkedListUT->getValueAt(0));
+    linkedListUT = new lab5::LinkedList(*linkedListUT);
+    EXPECT_EQ("foo", linkedListUT->at(0));
 
     linkedListUT->remove(0);
-    EXPECT_EQ("bar", linkedListUT->getValueAt(0));
+    EXPECT_EQ("bar", linkedListUT->at(0));
 
     linkedListUT->insert("qux", 0);
-    EXPECT_EQ("qux", linkedListUT->getValueAt(0));
+    EXPECT_EQ("qux", linkedListUT->at(0));
 }
 
-TEST_F(LinkedListTest, equalsOperator_hardCopiesNodes) {
+TEST_F(linked_listTest, equalsOperator_hardCopiesNodes) {
     linkedListUT->append("foo");
     linkedListUT->append("bar");
     linkedListUT->append("baz");
 
-    auto otherLinkedListUT = new lab5::linked_list;
-    otherLinkedListUT->operator=(*linkedListUT);
+    auto otherlinked_listUT = new lab5::LinkedList;
+    otherlinked_listUT->operator=(*linkedListUT);
 
-    EXPECT_EQ("foo", linkedListUT->getValueAt(0));
-    EXPECT_EQ("foo", otherLinkedListUT->getValueAt(0));
+    EXPECT_EQ("foo", linkedListUT->at(0));
+    EXPECT_EQ("foo", otherlinked_listUT->at(0));
 
     linkedListUT->remove(0);
-    EXPECT_EQ("bar", linkedListUT->getValueAt(0));
-    EXPECT_EQ("foo", otherLinkedListUT->getValueAt(0));
+    EXPECT_EQ("bar", linkedListUT->at(0));
+    EXPECT_EQ("foo", otherlinked_listUT->at(0));
 
-    otherLinkedListUT->remove(0);
-    EXPECT_EQ("bar", linkedListUT->getValueAt(0));
-    EXPECT_EQ("bar", otherLinkedListUT->getValueAt(0));
+    otherlinked_listUT->remove(0);
+    EXPECT_EQ("bar", linkedListUT->at(0));
+    EXPECT_EQ("bar", otherlinked_listUT->at(0));
 
     linkedListUT->insert("qux", 0);
-    EXPECT_EQ("qux", linkedListUT->getValueAt(0));
-    EXPECT_EQ("bar", otherLinkedListUT->getValueAt(0));
+    EXPECT_EQ("qux", linkedListUT->at(0));
+    EXPECT_EQ("bar", otherlinked_listUT->at(0));
 
-    otherLinkedListUT->insert("qux", 0);
-    EXPECT_EQ("qux", linkedListUT->getValueAt(0));
-    EXPECT_EQ("qux", otherLinkedListUT->getValueAt(0));
+    otherlinked_listUT->insert("qux", 0);
+    EXPECT_EQ("qux", linkedListUT->at(0));
+    EXPECT_EQ("qux", otherlinked_listUT->at(0));
 }
 
-TEST_F(LinkedListTest, equalsOperator_selfAssignment_doesNotChangeNodes) {
+TEST_F(linked_listTest, equalsOperator_selfAssignment_doesNotChangeNodes) {
     linkedListUT->append("foo");
     linkedListUT->append("bar");
     linkedListUT->append("baz");
 
     linkedListUT->operator=(*linkedListUT);
-    EXPECT_EQ("foo", linkedListUT->getValueAt(0));
+    EXPECT_EQ("foo", linkedListUT->at(0));
 
     linkedListUT->remove(0);
-    EXPECT_EQ("bar", linkedListUT->getValueAt(0));
+    EXPECT_EQ("bar", linkedListUT->at(0));
 
     linkedListUT->insert("qux", 0);
-    EXPECT_EQ("qux", linkedListUT->getValueAt(0));
+    EXPECT_EQ("qux", linkedListUT->at(0));
 }
 
-TEST_F(LinkedListTest, sort_sortsLinkedListData) {
+TEST_F(linked_listTest, sort_sortslinked_listData) {
     linkedListUT->append("charlie");
     linkedListUT->append("echo");
     linkedListUT->append("alfa");
@@ -320,24 +320,24 @@ TEST_F(LinkedListTest, sort_sortsLinkedListData) {
 
     linkedListUT->sort();
 
-    EXPECT_EQ("alfa", linkedListUT->getValueAt(0));
-    EXPECT_EQ("bravo", linkedListUT->getValueAt(1));
-    EXPECT_EQ("charlie", linkedListUT->getValueAt(2));
-    EXPECT_EQ("delta", linkedListUT->getValueAt(3));
-    EXPECT_EQ("echo", linkedListUT->getValueAt(4));
-    EXPECT_EQ("foxtrot", linkedListUT->getValueAt(5));
-    EXPECT_EQ("golf", linkedListUT->getValueAt(6));
-    EXPECT_EQ("hotel", linkedListUT->getValueAt(7));
-    EXPECT_EQ("india", linkedListUT->getValueAt(8));
-    EXPECT_EQ("juliett", linkedListUT->getValueAt(9));
+    EXPECT_EQ("alfa", linkedListUT->at(0));
+    EXPECT_EQ("bravo", linkedListUT->at(1));
+    EXPECT_EQ("charlie", linkedListUT->at(2));
+    EXPECT_EQ("delta", linkedListUT->at(3));
+    EXPECT_EQ("echo", linkedListUT->at(4));
+    EXPECT_EQ("foxtrot", linkedListUT->at(5));
+    EXPECT_EQ("golf", linkedListUT->at(6));
+    EXPECT_EQ("hotel", linkedListUT->at(7));
+    EXPECT_EQ("india", linkedListUT->at(8));
+    EXPECT_EQ("juliett", linkedListUT->at(9));
 }
 
-// Stack Tests
+// StringVectorStack Tests
 class StackTest : public ::testing::Test {
 
 protected:
     virtual void SetUp() {
-        stackUT = new lab5::stack;
+        stackUT = new lab5::LinkedListStack;
     }
 
     virtual void TearDown() {
@@ -345,11 +345,11 @@ protected:
     }
 
 public:
-    lab5::stack *stackUT;
+    lab5::LinkedListStack *stackUT;
 };
 
 TEST(CrashTest, stack_crashTest) {
-    auto stackUT = new lab5::stack;
+    auto stackUT = new lab5::LinkedListStack;
     delete stackUT;
 }
 
@@ -416,26 +416,26 @@ TEST_F(StackTest, top_stackIsEmpty_crashes) {
 }
 
 TEST_F(StackTest, isEmpty_afterDefaultConstructor_true) {
-    EXPECT_TRUE(stackUT->isEmpty());
+    EXPECT_TRUE(stackUT->empty());
 }
 
 TEST_F(StackTest, size_afterDefaultConstructor_0) {
-    EXPECT_EQ(0, stackUT->stackSize());
+    EXPECT_EQ(0, stackUT->size());
 }
 
 TEST_F(StackTest, isEmptyAndSize_tracksPushesAndPops) {
     stackUT->push("foo");
-    EXPECT_FALSE(stackUT->isEmpty());
-    EXPECT_EQ(1, stackUT->stackSize());
+    EXPECT_FALSE(stackUT->empty());
+    EXPECT_EQ(1, stackUT->size());
 
     stackUT->push("bar");
-    EXPECT_FALSE(stackUT->isEmpty());
-    EXPECT_EQ(2, stackUT->stackSize());
+    EXPECT_FALSE(stackUT->empty());
+    EXPECT_EQ(2, stackUT->size());
 
     stackUT->pop();
     stackUT->pop();
-    EXPECT_TRUE(stackUT->isEmpty());
-    EXPECT_EQ(0, stackUT->stackSize());
+    EXPECT_TRUE(stackUT->empty());
+    EXPECT_EQ(0, stackUT->size());
 }
 
 TEST_F(StackTest, insertionOperator_outputsContents) {
@@ -462,7 +462,7 @@ TEST_F(StackTest, extractionOperator_inputsContents) {
 
 TEST_F(StackTest, parameterizedConstructor_pushesInitialValue) {
     std::string input = "foo";
-    stackUT = new lab5::stack(input);
+    stackUT = new lab5::LinkedListStack(input);
     EXPECT_EQ("foo", stackUT->top());
 }
 
@@ -470,7 +470,7 @@ TEST_F(StackTest, copyConstructor_hardCopiesValues) {
     stackUT->push("foo");
     stackUT->push("bar");
 
-    auto otherStackUT = new lab5::stack(*stackUT);
+    auto otherStackUT = new lab5::LinkedListStack(*stackUT);
 
     EXPECT_EQ("bar", stackUT->top());
     EXPECT_EQ("bar", otherStackUT->top());
@@ -485,7 +485,7 @@ TEST_F(StackTest, copyConstructor_hardCopiesValues) {
 }
 
 TEST_F(StackTest, equalsOperator_hardCopiesValues) {
-    auto otherStackUT = new lab5::stack;
+    auto otherStackUT = new lab5::LinkedListStack;
 
     stackUT->push("foo");
     stackUT->push("bar");
@@ -504,12 +504,12 @@ TEST_F(StackTest, equalsOperator_hardCopiesValues) {
     EXPECT_EQ("foo", otherStackUT->top());
 }
 
-// Queue Tests
+// LinkedListQueue Tests
 class QueueTest : public ::testing::Test {
 
 protected:
     virtual void SetUp() {
-        queueUT = new lab5::queue;
+        queueUT = new lab5::LinkedListQueue;
     }
 
     virtual void TearDown() {
@@ -517,11 +517,11 @@ protected:
     }
 
 public:
-    lab5::queue *queueUT;
+    lab5::LinkedListQueue *queueUT;
 };
 
 TEST(CrashTest, queue_crashTest) {
-    auto queueUT = new lab5::queue;
+    auto queueUT = new lab5::LinkedListQueue;
     delete queueUT;
 }
 
@@ -588,26 +588,26 @@ TEST_F(QueueTest, top_queueIsEmpty_crashes) {
 }
 
 TEST_F(QueueTest, isEmpty_afterDefaultConstructor_true) {
-    EXPECT_TRUE(queueUT->isEmpty());
+    EXPECT_TRUE(queueUT->empty());
 }
 
 TEST_F(QueueTest, size_afterDefaultConstructor_0) {
-    EXPECT_EQ(0, queueUT->queueSize());
+    EXPECT_EQ(0, queueUT->size());
 }
 
 TEST_F(QueueTest, isEmptyAndSize_tracksEnqueuesAndDequeues) {
     queueUT->enqueue("foo");
-    EXPECT_FALSE(queueUT->isEmpty());
-    EXPECT_EQ(1, queueUT->queueSize());
+    EXPECT_FALSE(queueUT->empty());
+    EXPECT_EQ(1, queueUT->size());
 
     queueUT->enqueue("bar");
-    EXPECT_FALSE(queueUT->isEmpty());
-    EXPECT_EQ(2, queueUT->queueSize());
+    EXPECT_FALSE(queueUT->empty());
+    EXPECT_EQ(2, queueUT->size());
 
     queueUT->dequeue();
     queueUT->dequeue();
-    EXPECT_TRUE(queueUT->isEmpty());
-    EXPECT_EQ(0, queueUT->queueSize());
+    EXPECT_TRUE(queueUT->empty());
+    EXPECT_EQ(0, queueUT->size());
 }
 
 TEST_F(QueueTest, insertionOperator_outputsContents) {
@@ -636,7 +636,7 @@ TEST_F(QueueTest, extractionOperator_inputsContents) {
 TEST_F(QueueTest, parameterizedConstructor_enqueuesInitialValue) {
     delete queueUT;
     std::string input = "foo";
-    queueUT = new lab5::queue(input);
+    queueUT = new lab5::LinkedListQueue(input);
     EXPECT_EQ("foo", queueUT->top());
 }
 
@@ -644,7 +644,7 @@ TEST_F(QueueTest, copyConstructor_hardCopiesValues) {
     queueUT->enqueue("foo");
     queueUT->enqueue("bar");
 
-    auto otherQueueUT = new lab5::queue(*queueUT);
+    auto otherQueueUT = new lab5::LinkedListQueue(*queueUT);
 
     EXPECT_EQ("foo", queueUT->top());
     EXPECT_EQ("foo", otherQueueUT->top());
@@ -662,7 +662,7 @@ TEST_F(QueueTest, equalsOperator_hardCopiesValues) {
     queueUT->enqueue("foo");
     queueUT->enqueue("bar");
 
-    auto otherQueueUT = new lab5::queue;
+    auto otherQueueUT = new lab5::LinkedListQueue;
     otherQueueUT->operator=(*queueUT);
 
     EXPECT_EQ("foo", queueUT->top());
@@ -677,12 +677,12 @@ TEST_F(QueueTest, equalsOperator_hardCopiesValues) {
     EXPECT_EQ("bar", otherQueueUT->top());
 }
 
-// Linked List Calculator Tests
+// Linked List StringVectorCalculator Tests
 class FancyCalculatorTest : public ::testing::Test {
 
 protected:
     virtual void SetUp() {
-        calculatorUT = new lab5::calculator;
+        calculatorUT = new lab5::LinkedListCalculator;
     }
 
     virtual void TearDown() {
@@ -690,108 +690,108 @@ protected:
     }
 
 public:
-    lab5::calculator *calculatorUT;
+    lab5::LinkedListCalculator *calculatorUT;
     std::string input;
 };
 
 TEST(CrashTest, fancyCalculator_crashTest) {
-    auto fancyCalculatorUT = new lab5::calculator;
+    auto fancyCalculatorUT = new lab5::LinkedListCalculator;
     delete fancyCalculatorUT;
 }
 
 TEST_F(FancyCalculatorTest, calculate_expressionsWithSingleOperations_calculatesCorrectAnswer) {
     delete calculatorUT;
     input = "1 + 2";
-    calculatorUT = new lab5::calculator(input);
+    calculatorUT = new lab5::LinkedListCalculator(input);
     EXPECT_EQ(3, calculatorUT->calculate());
 
     delete calculatorUT;
     input = "3 - 2";
-    calculatorUT = new lab5::calculator(input);
+    calculatorUT = new lab5::LinkedListCalculator(input);
     EXPECT_EQ(1, calculatorUT->calculate());
 
     delete calculatorUT;
     input = "2 * 3";
-    calculatorUT = new lab5::calculator(input);
+    calculatorUT = new lab5::LinkedListCalculator(input);
     EXPECT_EQ(6, calculatorUT->calculate());
 
     delete calculatorUT;
     input = "6 / 3";
-    calculatorUT = new lab5::calculator(input);
+    calculatorUT = new lab5::LinkedListCalculator(input);
     EXPECT_EQ(2, calculatorUT->calculate());
 
     delete calculatorUT;
     input = "10 % 3";
-    calculatorUT = new lab5::calculator(input);
+    calculatorUT = new lab5::LinkedListCalculator(input);
     EXPECT_EQ(1, calculatorUT->calculate());
 
     delete calculatorUT;
     input = "2 ^ 3";
-    calculatorUT = new lab5::calculator(input);
+    calculatorUT = new lab5::LinkedListCalculator(input);
     EXPECT_EQ(8, calculatorUT->calculate());
 }
 
 TEST_F(FancyCalculatorTest, calculate_expressionsWithMultipleOperations_calculatesCorrectAnswer) {
     delete calculatorUT;
     input = "1 + 2 + 3";
-    calculatorUT = new lab5::calculator(input);
+    calculatorUT = new lab5::LinkedListCalculator(input);
     EXPECT_EQ(6, calculatorUT->calculate());
 
     delete calculatorUT;
     input = "1 + 2 + 3 - 4";
-    calculatorUT = new lab5::calculator(input);
+    calculatorUT = new lab5::LinkedListCalculator(input);
     EXPECT_EQ(2, calculatorUT->calculate());
 
     delete calculatorUT;
     input = "10 * 2 - 3 + 10 / 5";
-    calculatorUT = new lab5::calculator(input);
+    calculatorUT = new lab5::LinkedListCalculator(input);
     EXPECT_EQ(19, calculatorUT->calculate());
 
     delete calculatorUT;
     input = "6 * 10 + 13 - 6 ^ 2 + 8 ^ 2 / 2 % 5";
-    calculatorUT = new lab5::calculator(input);
+    calculatorUT = new lab5::LinkedListCalculator(input);
     EXPECT_EQ(39, calculatorUT->calculate());
 }
 
 TEST_F(FancyCalculatorTest, calculate_expressionsWithParetheses_calculatesCorrectAnswer) {
     delete calculatorUT;
     input = "( 1 + 2 )";
-    calculatorUT = new lab5::calculator(input);
+    calculatorUT = new lab5::LinkedListCalculator(input);
     EXPECT_EQ(3, calculatorUT->calculate());
 
     delete calculatorUT;
     input = "( 1 + 2 + 3 )";
-    calculatorUT = new lab5::calculator(input);
+    calculatorUT = new lab5::LinkedListCalculator(input);
     EXPECT_EQ(6, calculatorUT->calculate());
 
     delete calculatorUT;
     input = "( 1 + 2 ) + 3";
-    calculatorUT = new lab5::calculator(input);
+    calculatorUT = new lab5::LinkedListCalculator(input);
     EXPECT_EQ(6, calculatorUT->calculate());
 
     delete calculatorUT;
     input = "1 + ( 2 + 3 )";
-    calculatorUT = new lab5::calculator(input);
+    calculatorUT = new lab5::LinkedListCalculator(input);
     EXPECT_EQ(6, calculatorUT->calculate());
 
     delete calculatorUT;
     input = "8 + 7 * ( 7 - 2 )";
-    calculatorUT = new lab5::calculator(input);
+    calculatorUT = new lab5::LinkedListCalculator(input);
     EXPECT_EQ(43, calculatorUT->calculate());
 
     delete calculatorUT;
     input = "10 * ( 8 + 5 ) + 7 - 14 + 9";
-    calculatorUT = new lab5::calculator(input);
+    calculatorUT = new lab5::LinkedListCalculator(input);
     EXPECT_EQ(132, calculatorUT->calculate());
 
     delete calculatorUT;
     input = "15 - 10 * 6 + ( 14 - 7 % 2) * 7 ^ 2 + 11";
-    calculatorUT = new lab5::calculator(input);
+    calculatorUT = new lab5::LinkedListCalculator(input);
     EXPECT_EQ(603, calculatorUT->calculate());
 
     delete calculatorUT;
     input = "49 * ( 17 * ( 3 + 2 * ( 12 + 2 * ( 45 - 43 ) + 2 ) ) + 1 * ( 6 / 2 ) )";
-    calculatorUT = new lab5::calculator(input);
+    calculatorUT = new lab5::LinkedListCalculator(input);
     EXPECT_EQ(32634, calculatorUT->calculate());
 }
 
@@ -800,14 +800,14 @@ TEST_F(FancyCalculatorTest, insertionAndExtractionOperator_outputsAndInputsInfix
 
     delete (calculatorUT);
     input = "1 + 2 + 3";
-    calculatorUT = new lab5::calculator(input);
+    calculatorUT = new lab5::LinkedListCalculator(input);
 
     testing::internal::CaptureStdout();
     std::cout << *calculatorUT;
     EXPECT_EQ("Infix: 1,+,2,+,3\nPostfix: 1,2,+,3,+", testing::internal::GetCapturedStdout());
 
     delete (calculatorUT);
-    calculatorUT = new lab5::calculator();
+    calculatorUT = new lab5::LinkedListCalculator();
     std::stringstream("1 + 2 + 3 - 4") >> *calculatorUT;
 
     testing::internal::CaptureStdout();
@@ -816,7 +816,7 @@ TEST_F(FancyCalculatorTest, insertionAndExtractionOperator_outputsAndInputsInfix
 
     delete (calculatorUT);
     input = "49 * ( 17 * ( 3 + 2 * ( 12 + 2 * ( 45 - 43 ) + 2 ) ) + 1 * ( 6 / 2 ) )";
-    calculatorUT = new lab5::calculator(input);
+    calculatorUT = new lab5::LinkedListCalculator(input);
 
     testing::internal::CaptureStdout();
     std::cout << *calculatorUT;

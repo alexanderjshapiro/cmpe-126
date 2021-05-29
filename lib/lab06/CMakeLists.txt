@@ -1,5 +1,5 @@
 set(HEADER_FILES
-        inc/Node.h
+        inc/DoublyLinkedListNode.h
         inc/DoublyLinkedList.h)
 
 set(SOURCE_FILES

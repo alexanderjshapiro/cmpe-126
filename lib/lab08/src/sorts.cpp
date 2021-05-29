@@ -2,12 +2,12 @@
 
 namespace lab6 {
     unsigned partition(DoublyLinkedList &list, unsigned low, unsigned high) {
-        int pivot = list.getValue(high);
+        int pivot = list.at(high);
 
         unsigned i = low;
         for (unsigned j = low; j < high; j++) {
             // If current element is smaller than the pivot
-            if (list.getValue(j) < pivot) list.swap(i++, j);
+            if (list.at(j) < pivot) list.swap(i++, j);
         }
 
         list.swap(i, high);
@@ -36,13 +36,13 @@ namespace lab6 {
         unsigned leftSize = left.size(), rightSize = right.size();
         unsigned leftIndex = 0, rightIndex = 0;
         while (leftIndex < leftSize && rightIndex < rightSize) {
-            if (left.getValue(leftIndex) <= right.getValue(rightIndex)) list.append(left.getValue(leftIndex++));
-            else list.append(right.getValue(rightIndex++));
+            if (left.at(leftIndex) <= right.at(rightIndex)) list.append(left.at(leftIndex++));
+            else list.append(right.at(rightIndex++));
         }
 
         // Add the remaining values from the non-empty list
-        while (leftIndex < leftSize) list.append(left.getValue(leftIndex++));
-        while (rightIndex < rightSize) list.append(right.getValue(rightIndex++));
+        while (leftIndex < leftSize) list.append(left.at(leftIndex++));
+        while (rightIndex < rightSize) list.append(right.at(rightIndex++));
 
         return list;
     }

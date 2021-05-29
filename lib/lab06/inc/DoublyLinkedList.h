@@ -1,45 +1,47 @@
-#ifndef CMPE126S18_LABS_DOUBLY_LINKED_LIST_H
-#define CMPE126S18_LABS_DOUBLY_LINKED_LIST_H
+#ifndef DOUBLYLINKEDLIST_H
+#define DOUBLYLINKEDLIST_H
 
-#include "Node.h"
-#include <vector>
+#include "DoublyLinkedListNode.h"
+
 #include <iostream>
+#include <vector>
 
 namespace lab6 {
     class DoublyLinkedList {
-        lab6::Node *head;
-        lab6::Node *tail;
+    private:
+        lab6::DoublyLinkedListNode *head, *tail;
+
     public:
         DoublyLinkedList();
-        DoublyLinkedList(int firstValue);
-        DoublyLinkedList(const std::vector<int>& vector);
-        DoublyLinkedList(const DoublyLinkedList &original);
+        explicit DoublyLinkedList(int integer);
+        explicit DoublyLinkedList(const std::vector<int> &integers);
+        DoublyLinkedList(const DoublyLinkedList &other);
         ~DoublyLinkedList();
 
-        int getValue(unsigned index);
-        std::vector<int> getSet(unsigned indexFrom, unsigned indexTo);
-        unsigned size();
-        bool empty();
+        int at(unsigned index) const;
+        std::vector<int> getSet(unsigned indexFrom, unsigned indexTo) const;
+        unsigned size() const;
+        bool empty() const;
 
-        void append(int value);
-        void insert(int value, unsigned index = 0);
-        void remove(unsigned index);
+        void append(int integer);
+        void insert(int integer, unsigned index = 0);
+        void remove(unsigned index = 0);
+
         DoublyLinkedList split(unsigned index);
         DoublyLinkedList splitSet(unsigned indexFrom, unsigned indexTo);
-
         void swap(unsigned firstIndex, unsigned secondIndex);
         void swapSet(unsigned firstIndexFrom, unsigned firstIndexTo, unsigned secondIndexFrom, unsigned secondIndexTo);
-
         void sort();
 
-        DoublyLinkedList operator+(const DoublyLinkedList &other) const;
         DoublyLinkedList &operator=(const DoublyLinkedList &other);
+        DoublyLinkedList operator+(const DoublyLinkedList &other) const;
         DoublyLinkedList &operator+=(const DoublyLinkedList &other);
-        bool operator==(const DoublyLinkedList &other);
 
-        friend std::ostream &operator<<(std::ostream &stream, DoublyLinkedList &RHS);
+        bool operator==(const DoublyLinkedList &other) const;
+
         friend std::istream &operator>>(std::istream &stream, DoublyLinkedList &RHS);
+        friend std::ostream &operator<<(std::ostream &stream, const DoublyLinkedList &RHS);
     };
 }
 
-#endif //CMPE126S18_LABS_DOUBLY_LINKED_LIST_H
+#endif // DOUBLYLINKEDLIST_H

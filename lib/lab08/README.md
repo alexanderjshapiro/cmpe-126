@@ -5,12 +5,12 @@ You will also be implementing two very important sorting functions this week. Bu
 
 ### Lab Instructions ###
 
-Implement the hash table using the three most common probingTechnique techniques: linear, quadratic, double. Use the two provided hashing functions `DJB2` and `BKDR`.
+Implement the hash table using the three most common probingTechnique techniques: linear, quadratic, double. Use the two provided hashing functions `hashDJB2` and `hashBKDR`.
 
 When the hash table gets more than 70% full, you will need to double the size of the hash table to help reduce the number of collisions that could occur. There are three common techniques of probingTechnique a hash table.
-* *linear*: When a collision is found at `table[n%maxSize]`, go to the array location `table[(n+attempt)%maxSize]`, where `n` is the output of the `DJB2` function and attempt is the number of collisions encountered so far. Continue moving along the array cell by cell until the desired location is found.
+* *linear*: When a collision is found at `table[n%maxSize]`, go to the array location `table[(n+attempt)%maxSize]`, where `n` is the output of the `hashDJB2` function and attempt is the number of collisions encountered so far. Continue moving along the array cell by cell until the desired location is found.
 * *quadratic*: When a collision is found at `table[n%maxSize]`, go to the array location `table[(n + attempt^2)%maxSize]`.
-* *double*: When a collision is found at `table[n%maxSize]`, go to the array location `table[(n+attempt*m)%maxSize]`, where `m` is the output of the `BKDR` function.
+* *double*: When a collision is found at `table[n%maxSize]`, go to the array location `table[(n+attempt*m)%maxSize]`, where `m` is the output of the `hashBKDR` function.
 
 Implement both merge sort and quicksort. Verify they sort. We will only provide basic tests. *You* must implement the sorts using their algorithms.
 
@@ -22,8 +22,8 @@ There are thousands of videos on YouTube that cover these topics in much more de
 * Youtube video on [Hash Table](https://www.youtube.com/watch?v=shs0KM3wKv8)
 
 ##### Function Explanation #####
-* `DJB2(std::string)`: DJB2 String hashing algorithm
-* `BKDR(std::string)`: BKDR String hashing algorithm
+* `hashDJB2(std::string)`: hashDJB2 String hashing algorithm
+* `hashBKDR(std::string)`: hashBKDR String hashing algorithm
 * `expand()`: Increases the size of the hash table when the hash table gets more than 70% full. New max size comes from PRIMES array.
 * `HashTable(char)`: Constructor that takes in the type of probingTechnique to be used.
 * `HashTable)`: Deconstructor.

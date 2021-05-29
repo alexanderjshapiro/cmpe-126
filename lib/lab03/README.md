@@ -1,7 +1,7 @@
 # Lab 3: Last In/First Out, First In/Last Out # 
 **10 points**
 
-For this lab, you will be implementing both a *Last In/First Out* and *First In/First Out* data structures. These data structures store data in a way that allows you to only see one value from the structure. You can't see any other value in the structure unless it is the top value.
+For this lab, you will be implementing both a *Last In/First Out* and *First In/First Out* data structures. These data structures store data in a way that allows you to only see one value from the structure. You can't see any other value in the structure unless it is the front value.
 These structures are important because they allow us to add or remove data members to the structure in an O(1) complexity.
 
 ### Lab Instructions
@@ -9,47 +9,47 @@ Implement each of the functions to perform the necessary actions outlined in the
 
 As you are writing your functions, read the instructions and think of how you would test that functions while you are writing it. Write your Test first and then implement your functions. Try running your test and then fixing your issues.  
 
-`lifo_storage` and `fifo_storage` will both be statically sized, meaning that you don't need to worry about dynamically growing the stringVector. Treat it just like an array.
+`stack` and `StringVectorQueue` will both be statically sized, meaning that you don't need to worry about dynamically growing the StringVector. Treat it just like an array.
 #### Fifo ####
-**fifo()**: Default constructor. Set index properly and reserve 100 spaces in fifo_storage
+**Queue()**: Default constructor. Set index properly and reserve 100 spaces in StringVectorQueue
 
-**explicit fifo(std::string input_string)**: Constructor that does the same thing as the default constructor, but adds a single item to the Fifo
+**explicit Queue(std::string input_string)**: Constructor that does the same thing as the default constructor, but adds a single item to the Fifo
 
-**fifo(const fifo &original)**: Copy constructor
+**Queue(const Queue &original)**: Copy constructor
 
-**virtual ~fifo()**: Destructor
+**virtual Queuee()**: Destructor
 
-**fifo &operator=(const fifo &right)**: Assignment operator
+**Queue &operator=(const Queue &right)**: Assignment operator
 
-**bool is_empty() const**: Return true if the fifo is empty and false if it is not
+**bool empty() const**: Return true if the Queue is empty and false if it is not
 
-**unsigned size() const**: Return the size of the fifo
+**unsigned size() const**: Return the size of the Queue
 
-**std::string top() const**: Return the front string of the fifo.
+**std::string front() const**: Return the front string of the Queue.
 
-**void enqueue(std::string input)**: Add input string to the back of the fifo
+**void enqueue(std::string input)**: Add input string to the back of the Queue
 
-**void dequeue()**: Remove the front string from the fifo
+**void dequeue()**: Remove the front string from the Queue
 #### Lifo ####
-**lifo()**: Default constructor. Set index properly and reserve 100 spaces in fifo_storage
+**StringVectorStack()**: Default constructor. Set index properly and reserve 100 spaces in StringVectorQueue
 
-**explicit lifo(std::string input_string)**: Constructor that does the same thing as the default constructor, but adds a single item to the Fifo
+**explicit StringVectorStack(std::string input_string)**: Constructor that does the same thing as the default constructor, but adds a single item to the Fifo
 
-**lifo(const lifo &original)**: Copy constructor
+**StringVectorStack(const StringVectorStack &original)**: Copy constructor
 
-**virtual ~lifo()**: Destructor
+**virtual Stackk()**: Destructor
 
-**lifo &operator=(const lifo &right)**: Assignment operator
+**StringVectorStack &operator=(const StringVectorStack &right)**: Assignment operator
 
-**bool is_empty() const**: Return true if the lifo is empty and false if it is not
+**bool empty() const**: Return true if the StringVectorStack is empty and false if it is not
 
-**unsigned size() const**: Return the size of the lifo
+**unsigned size() const**: Return the size of the StringVectorStack
 
-**std::string top() const**: Return the top of the lifo.
+**std::string front() const**: Return the front of the StringVectorStack.
 
-**void push(std::string input)**: Add input string to the top of the string
+**void push(std::string input)**: Add input string to the front of the string
 
-**void pop()**: Remove the top string from the lifo
+**void pop()**: Remove the front string from the StringVectorStack
 
 
 ### Hints ###

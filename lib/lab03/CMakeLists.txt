@@ -1,10 +1,10 @@
 set(HEADER_FILES
-        inc/lifo.h
-        inc/fifo.h)
+        inc/StringVectorStack.h
+        inc/StringVectorQueue.h)
 
 set(SOURCE_FILES
-        src/lifo.cpp
-        src/fifo.cpp)
+        src/StringVectorStack.cpp
+        src/StringVectorQueue.cpp)
 
 include_directories(inc)
 add_library(lab3_lib STATIC ${SOURCE_FILES} ${HEADER_FILES})

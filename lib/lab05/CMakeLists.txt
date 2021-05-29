@@ -1,16 +1,16 @@
 set(HEADER_FILES
-        inc/node.h
-        inc/linked_list.h
-        inc/stack.h
-        inc/queue.h
-		inc/fancy_calculator.h
+		inc/LinkedListNode.h
+        inc/LinkedList.h
+		inc/LinkedListStack.h
+		inc/LinkedListQueue.h
+		inc/LinkedListCalculator.h
         )
 
 set(SOURCE_FILES
-		src/linked_list.cpp
-        src/stack.cpp
-        src/queue.cpp
-        src/fancy_calculator.cpp
+        src/LinkedList.cpp
+		src/LinkedListStack.cpp
+		src/LinkedListQueue.cpp
+		src/LinkedListCalculator.cpp
 		)
 include_directories(inc)
 add_library(lab5_lib STATIC ${SOURCE_FILES} ${HEADER_FILES})

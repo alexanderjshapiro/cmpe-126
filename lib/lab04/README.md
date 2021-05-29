@@ -1,7 +1,7 @@
-# Lab 4: Simple Calculator #
+# Lab 4: Simple StringVectorCalculator #
 **10 points**
 
-This lab will take all of the work you have previous done and connect it together to make a calculator. You will be using the expresssionStream from Lab 1 to parse an input expression and calculate that expressoin. You will be implementing the Shunting yard algorithm to perform your calculation. This algorithm uses both Last In/First out (Stack) and First In/First Out (queue) to accomplish the calculation. This means that in order to get your calculator working, you need to have lab 2 and lab 3 working properly.
+This lab will take all of the work you have previous done and connect it together to make a StringVectorCalculator. You will be using the expresssionStream from Lab 1 to parse an input expression and calculate that expressoin. You will be implementing the Shunting yard algorithm to perform your calculation. This algorithm uses both Last In/First out (StringVectorStack) and First In/First Out (StringVectorQueue) to accomplish the calculation. This means that in order to get your StringVectorCalculator working, you need to have lab 2 and lab 3 working properly.
 
 ### Lab Instructions
 Implement each of the functions to perform the necessary actions outlined in the `.h` files.

@@ -1,32 +1,32 @@
-#ifndef CMPE126S18_LABS_STRINGVECTOR_H
-#define CMPE126S18_LABS_STRINGVECTOR_H
+#ifndef STRINGVECTOR_H
+#define STRINGVECTOR_H
 
 #include <string>
 
 namespace lab2 {
-    class stringVector {
+    class StringVector {
     private:
         std::string *data;
-        unsigned length;
-        unsigned allocated_length;
+        unsigned dataSize;
+        unsigned dataCapacity;
 
     public:
-        stringVector();
-        virtual ~stringVector();
-        stringVector &operator=(stringVector const &rhs);
+        StringVector();
+        StringVector(StringVector const &other);
+        StringVector &operator=(StringVector const &other);
+        virtual ~StringVector();
 
+        std::string &operator[](unsigned index) const;
         unsigned size() const;
         bool empty() const;
-
         unsigned capacity() const;
-        void reserve(unsigned new_size);
 
-        void append(std::string new_data);
-        void swap(unsigned pos1, unsigned pos2);
-        std::string &operator[](unsigned position);
+        void append(std::string string);
+        void reserve(unsigned capacity);
 
+        void swap(unsigned index1, unsigned index2);
         void sort();
     };
 }
 
-#endif //CMPE126S18_LABS_STRINGVECTOR_H
+#endif // STRINGVECTOR_H

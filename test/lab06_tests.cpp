@@ -26,55 +26,55 @@ TEST_F(DoublyLinkedListTest, append_emptyList_addsValueToList) {
     doublyLinkedListUT->append(10);
     doublyLinkedListUT->append(11);
     doublyLinkedListUT->append(12);
-    EXPECT_EQ(11, doublyLinkedListUT->getValue(1));
+    EXPECT_EQ(11, doublyLinkedListUT->at(1));
 }
 
 TEST_F(DoublyLinkedListTest, append_populatedList_addsValueToEnd) {
     doublyLinkedListUT->append(10);
-    ASSERT_EQ(10, doublyLinkedListUT->getValue(0));
+    ASSERT_EQ(10, doublyLinkedListUT->at(0));
 
     doublyLinkedListUT->append(11);
-    EXPECT_EQ(10, doublyLinkedListUT->getValue(0));
-    EXPECT_EQ(11, doublyLinkedListUT->getValue(1));
+    EXPECT_EQ(10, doublyLinkedListUT->at(0));
+    EXPECT_EQ(11, doublyLinkedListUT->at(1));
 
     doublyLinkedListUT->append(12);
-    EXPECT_EQ(10, doublyLinkedListUT->getValue(0));
-    EXPECT_EQ(11, doublyLinkedListUT->getValue(1));
-    EXPECT_EQ(12, doublyLinkedListUT->getValue(2));
+    EXPECT_EQ(10, doublyLinkedListUT->at(0));
+    EXPECT_EQ(11, doublyLinkedListUT->at(1));
+    EXPECT_EQ(12, doublyLinkedListUT->at(2));
 
     for (int i = 13; i < 1000; i++) doublyLinkedListUT->append(i);
-    for (int i = 0; i < 990; i++) ASSERT_EQ(i + 10, doublyLinkedListUT->getValue(i));
+    for (int i = 0; i < 990; i++) ASSERT_EQ(i + 10, doublyLinkedListUT->at(i));
 }
 
 TEST_F(DoublyLinkedListTest, getValue_doesNotCrash) {
     doublyLinkedListUT->append(10);
     doublyLinkedListUT->append(11);
     doublyLinkedListUT->append(12);
-    EXPECT_NO_FATAL_FAILURE(doublyLinkedListUT->getValue(1));
+    EXPECT_NO_FATAL_FAILURE(doublyLinkedListUT->at(1));
 }
 
 TEST_F(DoublyLinkedListTest, getValue_validIndex_getsDataAtIndex) {
     doublyLinkedListUT->append(10);
-    ASSERT_EQ(10, doublyLinkedListUT->getValue(0));
+    ASSERT_EQ(10, doublyLinkedListUT->at(0));
 
     doublyLinkedListUT->append(11);
-    EXPECT_EQ(10, doublyLinkedListUT->getValue(0));
-    EXPECT_EQ(11, doublyLinkedListUT->getValue(1));
+    EXPECT_EQ(10, doublyLinkedListUT->at(0));
+    EXPECT_EQ(11, doublyLinkedListUT->at(1));
 }
 
 TEST_F(DoublyLinkedListTest, getValue_invalidIndex_throws) {
     doublyLinkedListUT->append(10);
-    ASSERT_NO_THROW(doublyLinkedListUT->getValue(0));
-    EXPECT_ANY_THROW(doublyLinkedListUT->getValue(10));
-    EXPECT_ANY_THROW(doublyLinkedListUT->getValue(-1));
-    EXPECT_ANY_THROW(doublyLinkedListUT->getValue(1000000));
+    ASSERT_NO_THROW(doublyLinkedListUT->at(0));
+    EXPECT_ANY_THROW(doublyLinkedListUT->at(10));
+    EXPECT_ANY_THROW(doublyLinkedListUT->at(-1));
+    EXPECT_ANY_THROW(doublyLinkedListUT->at(1000000));
 }
 
 TEST_F(DoublyLinkedListTest, getValue_emptyList_throws) {
-    ASSERT_ANY_THROW(doublyLinkedListUT->getValue(0));
-    EXPECT_ANY_THROW(doublyLinkedListUT->getValue(10));
-    EXPECT_ANY_THROW(doublyLinkedListUT->getValue(-1));
-    EXPECT_ANY_THROW(doublyLinkedListUT->getValue(1000000));
+    ASSERT_ANY_THROW(doublyLinkedListUT->at(0));
+    EXPECT_ANY_THROW(doublyLinkedListUT->at(10));
+    EXPECT_ANY_THROW(doublyLinkedListUT->at(-1));
+    EXPECT_ANY_THROW(doublyLinkedListUT->at(1000000));
 }
 
 TEST_F(DoublyLinkedListTest, getSet_doesNotCrash) {
@@ -131,30 +131,30 @@ TEST_F(DoublyLinkedListTest, insert_validIndex_addsValueAtIndex) {
     doublyLinkedListUT->append(11);
     doublyLinkedListUT->append(12);
     doublyLinkedListUT->insert(100, 1);
-    ASSERT_EQ(10, doublyLinkedListUT->getValue(0));
-    EXPECT_EQ(100, doublyLinkedListUT->getValue(1));
-    EXPECT_EQ(11, doublyLinkedListUT->getValue(2));
-    EXPECT_EQ(12, doublyLinkedListUT->getValue(3));
+    ASSERT_EQ(10, doublyLinkedListUT->at(0));
+    EXPECT_EQ(100, doublyLinkedListUT->at(1));
+    EXPECT_EQ(11, doublyLinkedListUT->at(2));
+    EXPECT_EQ(12, doublyLinkedListUT->at(3));
 
     doublyLinkedListUT->insert(200, 0);
-    ASSERT_EQ(200, doublyLinkedListUT->getValue(0));
-    EXPECT_EQ(10, doublyLinkedListUT->getValue(1));
-    EXPECT_EQ(100, doublyLinkedListUT->getValue(2));
-    EXPECT_EQ(11, doublyLinkedListUT->getValue(3));
-    EXPECT_EQ(12, doublyLinkedListUT->getValue(4));
+    ASSERT_EQ(200, doublyLinkedListUT->at(0));
+    EXPECT_EQ(10, doublyLinkedListUT->at(1));
+    EXPECT_EQ(100, doublyLinkedListUT->at(2));
+    EXPECT_EQ(11, doublyLinkedListUT->at(3));
+    EXPECT_EQ(12, doublyLinkedListUT->at(4));
 
     doublyLinkedListUT->insert(300, 5);
-    ASSERT_EQ(200, doublyLinkedListUT->getValue(0));
-    EXPECT_EQ(10, doublyLinkedListUT->getValue(1));
-    EXPECT_EQ(100, doublyLinkedListUT->getValue(2));
-    EXPECT_EQ(11, doublyLinkedListUT->getValue(3));
-    EXPECT_EQ(12, doublyLinkedListUT->getValue(4));
-    EXPECT_EQ(300, doublyLinkedListUT->getValue(5));
+    ASSERT_EQ(200, doublyLinkedListUT->at(0));
+    EXPECT_EQ(10, doublyLinkedListUT->at(1));
+    EXPECT_EQ(100, doublyLinkedListUT->at(2));
+    EXPECT_EQ(11, doublyLinkedListUT->at(3));
+    EXPECT_EQ(12, doublyLinkedListUT->at(4));
+    EXPECT_EQ(300, doublyLinkedListUT->at(5));
 }
 
 TEST_F(DoublyLinkedListTest, insert_emptyList_addsValue) {
     doublyLinkedListUT->insert(100, 0);
-    EXPECT_EQ(100, doublyLinkedListUT->getValue(0));
+    EXPECT_EQ(100, doublyLinkedListUT->at(0));
 }
 
 TEST_F(DoublyLinkedListTest, insert_invalidIndex_throws) {
@@ -181,19 +181,19 @@ TEST_F(DoublyLinkedListTest, remove_validIndex_removesValueAtIndex) {
     doublyLinkedListUT->append(13);
 
     doublyLinkedListUT->remove(1);
-    ASSERT_EQ(10, doublyLinkedListUT->getValue(0));
-    EXPECT_EQ(12, doublyLinkedListUT->getValue(1));
-    EXPECT_EQ(13, doublyLinkedListUT->getValue(2));
+    ASSERT_EQ(10, doublyLinkedListUT->at(0));
+    EXPECT_EQ(12, doublyLinkedListUT->at(1));
+    EXPECT_EQ(13, doublyLinkedListUT->at(2));
 
     doublyLinkedListUT->remove(0);
-    EXPECT_EQ(12, doublyLinkedListUT->getValue(0));
-    EXPECT_EQ(13, doublyLinkedListUT->getValue(1));
+    EXPECT_EQ(12, doublyLinkedListUT->at(0));
+    EXPECT_EQ(13, doublyLinkedListUT->at(1));
 
     doublyLinkedListUT->remove(1);
-    EXPECT_EQ(12, doublyLinkedListUT->getValue(0));
+    EXPECT_EQ(12, doublyLinkedListUT->at(0));
 
     doublyLinkedListUT->remove(0);
-    EXPECT_ANY_THROW(doublyLinkedListUT->getValue(0));
+    EXPECT_ANY_THROW(doublyLinkedListUT->at(0));
 }
 
 TEST_F(DoublyLinkedListTest, remove_invalidIndex_throws) {
@@ -223,7 +223,7 @@ TEST_F(DoublyLinkedListTest, initialValueConstructor_doesNotCrash) {
 TEST_F(DoublyLinkedListTest, initialValueConstructor_addsValue) {
     delete doublyLinkedListUT;
     doublyLinkedListUT = new lab6::DoublyLinkedList(10);
-    EXPECT_EQ(10, doublyLinkedListUT->getValue(0));
+    EXPECT_EQ(10, doublyLinkedListUT->at(0));
 }
 
 TEST_F(DoublyLinkedListTest, vectorConstructor_doesNotCrash) {
@@ -234,11 +234,11 @@ TEST_F(DoublyLinkedListTest, vectorConstructor_doesNotCrash) {
 TEST_F(DoublyLinkedListTest, vectorConstructor_addsValue) {
     delete doublyLinkedListUT;
     doublyLinkedListUT = new lab6::DoublyLinkedList(std::vector<int>({10, 11, 12, 13, 14}));
-    ASSERT_EQ(10, doublyLinkedListUT->getValue(0));
-    EXPECT_EQ(11, doublyLinkedListUT->getValue(1));
-    EXPECT_EQ(12, doublyLinkedListUT->getValue(2));
-    EXPECT_EQ(13, doublyLinkedListUT->getValue(3));
-    EXPECT_EQ(14, doublyLinkedListUT->getValue(4));
+    ASSERT_EQ(10, doublyLinkedListUT->at(0));
+    EXPECT_EQ(11, doublyLinkedListUT->at(1));
+    EXPECT_EQ(12, doublyLinkedListUT->at(2));
+    EXPECT_EQ(13, doublyLinkedListUT->at(3));
+    EXPECT_EQ(14, doublyLinkedListUT->at(4));
 }
 
 TEST_F(DoublyLinkedListTest, copyConstructor_doesNotCrash) {
@@ -251,8 +251,8 @@ TEST_F(DoublyLinkedListTest, copyConstructor_copiesValues) {
     lab6::DoublyLinkedList *copy = new lab6::DoublyLinkedList(*doublyLinkedListUT);
 
     for (int i = 0; i < 10; i++) {
-        ASSERT_EQ(i + 10, doublyLinkedListUT->getValue(i));
-        ASSERT_EQ(i + 10, copy->getValue(i));
+        ASSERT_EQ(i + 10, doublyLinkedListUT->at(i));
+        ASSERT_EQ(i + 10, copy->at(i));
     }
 }
 
@@ -261,20 +261,20 @@ TEST_F(DoublyLinkedListTest, copyConstructor_hardCopiesValues) {
     lab6::DoublyLinkedList *copy = new lab6::DoublyLinkedList(*doublyLinkedListUT);
 
     doublyLinkedListUT->append(20);
-    ASSERT_EQ(20, doublyLinkedListUT->getValue(10));
-    EXPECT_ANY_THROW(copy->getValue(10));
+    ASSERT_EQ(20, doublyLinkedListUT->at(10));
+    EXPECT_ANY_THROW(copy->at(10));
 
     doublyLinkedListUT->insert(100, 3);
-    EXPECT_EQ(100, doublyLinkedListUT->getValue(3));
-    EXPECT_EQ(13, copy->getValue(3));
+    EXPECT_EQ(100, doublyLinkedListUT->at(3));
+    EXPECT_EQ(13, copy->at(3));
 
     copy->append(20);
-    EXPECT_EQ(19, doublyLinkedListUT->getValue(10));
-    EXPECT_EQ(20, copy->getValue(10));
+    EXPECT_EQ(19, doublyLinkedListUT->at(10));
+    EXPECT_EQ(20, copy->at(10));
 
     copy->remove(5);
-    EXPECT_EQ(14, doublyLinkedListUT->getValue(5));
-    EXPECT_EQ(16, copy->getValue(5));
+    EXPECT_EQ(14, doublyLinkedListUT->at(5));
+    EXPECT_EQ(16, copy->at(5));
 }
 
 TEST_F(DoublyLinkedListTest, split_doesNotCrash) {
@@ -286,45 +286,45 @@ TEST_F(DoublyLinkedListTest, split_validIndex_splitsListAtIndex) {
     for (int i = 10; i < 20; i++) doublyLinkedListUT->append(i);
 
     auto *doublyLinkedList2UT = new lab6::DoublyLinkedList(doublyLinkedListUT->split(5));
-    for (int i = 0; i < 5; i++) ASSERT_EQ(i + 10, doublyLinkedListUT->getValue(i));
-    for (int i = 0; i < 5; i++) ASSERT_EQ(i + 15, doublyLinkedList2UT->getValue(i));
-    EXPECT_ANY_THROW(doublyLinkedListUT->getValue(5));
-    EXPECT_ANY_THROW(doublyLinkedList2UT->getValue(5));
+    for (int i = 0; i < 5; i++) ASSERT_EQ(i + 10, doublyLinkedListUT->at(i));
+    for (int i = 0; i < 5; i++) ASSERT_EQ(i + 15, doublyLinkedList2UT->at(i));
+    EXPECT_ANY_THROW(doublyLinkedListUT->at(5));
+    EXPECT_ANY_THROW(doublyLinkedList2UT->at(5));
 
     auto *doublyLinkedList3UT = new lab6::DoublyLinkedList(doublyLinkedList2UT->split(3));
-    for (int i = 0; i < 5; i++) ASSERT_EQ(i + 10, doublyLinkedListUT->getValue(i));
-    for (int i = 0; i < 3; i++) ASSERT_EQ(i + 15, doublyLinkedList2UT->getValue(i));
-    for (int i = 0; i < 2; i++) ASSERT_EQ(i + 18, doublyLinkedList3UT->getValue(i));
-    EXPECT_ANY_THROW(doublyLinkedListUT->getValue(5));
-    EXPECT_ANY_THROW(doublyLinkedList2UT->getValue(3));
-    EXPECT_ANY_THROW(doublyLinkedList3UT->getValue(2));
+    for (int i = 0; i < 5; i++) ASSERT_EQ(i + 10, doublyLinkedListUT->at(i));
+    for (int i = 0; i < 3; i++) ASSERT_EQ(i + 15, doublyLinkedList2UT->at(i));
+    for (int i = 0; i < 2; i++) ASSERT_EQ(i + 18, doublyLinkedList3UT->at(i));
+    EXPECT_ANY_THROW(doublyLinkedListUT->at(5));
+    EXPECT_ANY_THROW(doublyLinkedList2UT->at(3));
+    EXPECT_ANY_THROW(doublyLinkedList3UT->at(2));
 
     auto *doublyLinkedList4UT = new lab6::DoublyLinkedList(doublyLinkedList3UT->split(1));
-    for (int i = 0; i < 5; i++) ASSERT_EQ(i + 10, doublyLinkedListUT->getValue(i));
-    for (int i = 0; i < 3; i++) ASSERT_EQ(i + 15, doublyLinkedList2UT->getValue(i));
-    EXPECT_EQ(18, doublyLinkedList3UT->getValue(0));
-    EXPECT_EQ(19, doublyLinkedList4UT->getValue(0));
-    EXPECT_ANY_THROW(doublyLinkedListUT->getValue(5));
-    EXPECT_ANY_THROW(doublyLinkedList2UT->getValue(3));
-    EXPECT_ANY_THROW(doublyLinkedList3UT->getValue(1));
-    EXPECT_ANY_THROW(doublyLinkedList4UT->getValue(1));
+    for (int i = 0; i < 5; i++) ASSERT_EQ(i + 10, doublyLinkedListUT->at(i));
+    for (int i = 0; i < 3; i++) ASSERT_EQ(i + 15, doublyLinkedList2UT->at(i));
+    EXPECT_EQ(18, doublyLinkedList3UT->at(0));
+    EXPECT_EQ(19, doublyLinkedList4UT->at(0));
+    EXPECT_ANY_THROW(doublyLinkedListUT->at(5));
+    EXPECT_ANY_THROW(doublyLinkedList2UT->at(3));
+    EXPECT_ANY_THROW(doublyLinkedList3UT->at(1));
+    EXPECT_ANY_THROW(doublyLinkedList4UT->at(1));
 }
 
 TEST_F(DoublyLinkedListTest, split_index0_splitsOffEntireList) {
     for (int i = 10; i < 20; i++) doublyLinkedListUT->append(i);
 
     auto *doublyLinkedList2UT = new lab6::DoublyLinkedList(doublyLinkedListUT->split(0));
-    ASSERT_ANY_THROW(doublyLinkedListUT->getValue(0));
-    for (int i = 0; i < 10; i++) ASSERT_EQ(i + 10, doublyLinkedList2UT->getValue(i));
-    EXPECT_ANY_THROW(doublyLinkedList2UT->getValue(10));
+    ASSERT_ANY_THROW(doublyLinkedListUT->at(0));
+    for (int i = 0; i < 10; i++) ASSERT_EQ(i + 10, doublyLinkedList2UT->at(i));
+    EXPECT_ANY_THROW(doublyLinkedList2UT->at(10));
 
     auto *doublyLinkedList3UT = new lab6::DoublyLinkedList(doublyLinkedList2UT->split(3));
-    EXPECT_ANY_THROW(doublyLinkedListUT->getValue(0));
-    for (int i = 0; i < 3; i++) ASSERT_EQ(i + 10, doublyLinkedList2UT->getValue(i));
-    for (int i = 0; i < 7; i++) ASSERT_EQ(i + 13, doublyLinkedList3UT->getValue(i));
-    EXPECT_ANY_THROW(doublyLinkedListUT->getValue(0));
-    EXPECT_ANY_THROW(doublyLinkedList2UT->getValue(3));
-    EXPECT_ANY_THROW(doublyLinkedList2UT->getValue(7));
+    EXPECT_ANY_THROW(doublyLinkedListUT->at(0));
+    for (int i = 0; i < 3; i++) ASSERT_EQ(i + 10, doublyLinkedList2UT->at(i));
+    for (int i = 0; i < 7; i++) ASSERT_EQ(i + 13, doublyLinkedList3UT->at(i));
+    EXPECT_ANY_THROW(doublyLinkedListUT->at(0));
+    EXPECT_ANY_THROW(doublyLinkedList2UT->at(3));
+    EXPECT_ANY_THROW(doublyLinkedList2UT->at(7));
 }
 
 TEST_F(DoublyLinkedListTest, split_invalidIndex_throws) {
@@ -350,31 +350,31 @@ TEST_F(DoublyLinkedListTest, splitSet_validIndices_splitsSetOffList) {
     for (int i = 10; i < 20; i++) doublyLinkedListUT->append(i);
 
     auto *doublyLinkedList2UT = new lab6::DoublyLinkedList(doublyLinkedListUT->splitSet(2, 4));
-    for (int i = 0; i < 2; i++) ASSERT_EQ(i + 10, doublyLinkedListUT->getValue(i));
-    for (int i = 2; i < 5; i++) ASSERT_EQ(i + 13, doublyLinkedListUT->getValue(i));
-    for (int i = 0; i < 3; i++) ASSERT_EQ(i + 12, doublyLinkedList2UT->getValue(i));
-    EXPECT_ANY_THROW(doublyLinkedListUT->getValue(7));
-    EXPECT_ANY_THROW(doublyLinkedList2UT->getValue(3));
+    for (int i = 0; i < 2; i++) ASSERT_EQ(i + 10, doublyLinkedListUT->at(i));
+    for (int i = 2; i < 5; i++) ASSERT_EQ(i + 13, doublyLinkedListUT->at(i));
+    for (int i = 0; i < 3; i++) ASSERT_EQ(i + 12, doublyLinkedList2UT->at(i));
+    EXPECT_ANY_THROW(doublyLinkedListUT->at(7));
+    EXPECT_ANY_THROW(doublyLinkedList2UT->at(3));
 
     auto *doublyLinkedList3UT = new lab6::DoublyLinkedList(doublyLinkedList2UT->splitSet(0, 0));
-    for (int i = 0; i < 2; i++) ASSERT_EQ(i + 10, doublyLinkedListUT->getValue(i));
-    for (int i = 2; i < 5; i++) ASSERT_EQ(i + 13, doublyLinkedListUT->getValue(i));
-    for (int i = 0; i < 2; i++) ASSERT_EQ(i + 13, doublyLinkedList2UT->getValue(i));
-    ASSERT_EQ(12, doublyLinkedList3UT->getValue(0));
-    EXPECT_ANY_THROW(doublyLinkedListUT->getValue(7));
-    EXPECT_ANY_THROW(doublyLinkedList2UT->getValue(2));
-    EXPECT_ANY_THROW(doublyLinkedList3UT->getValue(1));
+    for (int i = 0; i < 2; i++) ASSERT_EQ(i + 10, doublyLinkedListUT->at(i));
+    for (int i = 2; i < 5; i++) ASSERT_EQ(i + 13, doublyLinkedListUT->at(i));
+    for (int i = 0; i < 2; i++) ASSERT_EQ(i + 13, doublyLinkedList2UT->at(i));
+    ASSERT_EQ(12, doublyLinkedList3UT->at(0));
+    EXPECT_ANY_THROW(doublyLinkedListUT->at(7));
+    EXPECT_ANY_THROW(doublyLinkedList2UT->at(2));
+    EXPECT_ANY_THROW(doublyLinkedList3UT->at(1));
 }
 
 TEST_F(DoublyLinkedListTest, splitSet_wronglyOrderedIndices_splitsSetOffList) {
     for (int i = 10; i < 20; i++) doublyLinkedListUT->append(i);
 
     auto *doublyLinkedList2UT = new lab6::DoublyLinkedList(doublyLinkedListUT->splitSet(4, 2));
-    for (int i = 0; i < 2; i++) ASSERT_EQ(i + 10, doublyLinkedListUT->getValue(i));
-    for (int i = 2; i < 5; i++) ASSERT_EQ(i + 13, doublyLinkedListUT->getValue(i));
-    for (int i = 0; i < 3; i++) ASSERT_EQ(i + 12, doublyLinkedList2UT->getValue(i));
-    EXPECT_ANY_THROW(doublyLinkedListUT->getValue(7));
-    EXPECT_ANY_THROW(doublyLinkedList2UT->getValue(3));
+    for (int i = 0; i < 2; i++) ASSERT_EQ(i + 10, doublyLinkedListUT->at(i));
+    for (int i = 2; i < 5; i++) ASSERT_EQ(i + 13, doublyLinkedListUT->at(i));
+    for (int i = 0; i < 3; i++) ASSERT_EQ(i + 12, doublyLinkedList2UT->at(i));
+    EXPECT_ANY_THROW(doublyLinkedListUT->at(7));
+    EXPECT_ANY_THROW(doublyLinkedList2UT->at(3));
 }
 
 TEST_F(DoublyLinkedListTest, splitSet_invalidIndices_throws) {
@@ -455,27 +455,27 @@ TEST_F(DoublyLinkedListTest, swap_validIndices_swapsValues) {
     for (int i = 10; i < 20; i++) doublyLinkedListUT->append(i);
 
     doublyLinkedListUT->swap(3, 6);
-    ASSERT_EQ(16, doublyLinkedListUT->getValue(3));
-    EXPECT_EQ(13, doublyLinkedListUT->getValue(6));
+    ASSERT_EQ(16, doublyLinkedListUT->at(3));
+    EXPECT_EQ(13, doublyLinkedListUT->at(6));
 
     doublyLinkedListUT->swap(0, 9);
-    EXPECT_EQ(19, doublyLinkedListUT->getValue(0));
-    EXPECT_EQ(10, doublyLinkedListUT->getValue(9));
+    EXPECT_EQ(19, doublyLinkedListUT->at(0));
+    EXPECT_EQ(10, doublyLinkedListUT->at(9));
 
     doublyLinkedListUT->swap(4, 4);
-    EXPECT_EQ(14, doublyLinkedListUT->getValue(4));
+    EXPECT_EQ(14, doublyLinkedListUT->at(4));
 }
 
 TEST_F(DoublyLinkedListTest, swap_wronglyOrderedIndices_swapsValues) {
     for (int i = 10; i < 20; i++) doublyLinkedListUT->append(i);
 
     doublyLinkedListUT->swap(6, 3);
-    ASSERT_EQ(16, doublyLinkedListUT->getValue(3));
-    EXPECT_EQ(13, doublyLinkedListUT->getValue(6));
+    ASSERT_EQ(16, doublyLinkedListUT->at(3));
+    EXPECT_EQ(13, doublyLinkedListUT->at(6));
 
     doublyLinkedListUT->swap(9, 0);
-    EXPECT_EQ(19, doublyLinkedListUT->getValue(0));
-    EXPECT_EQ(10, doublyLinkedListUT->getValue(9));
+    EXPECT_EQ(19, doublyLinkedListUT->at(0));
+    EXPECT_EQ(10, doublyLinkedListUT->at(9));
 }
 
 TEST_F(DoublyLinkedListTest, swap_invalidIndices_throws) {
@@ -499,27 +499,27 @@ TEST_F(DoublyLinkedListTest, swapSet_validIndices_swapsValues) {
     for (int i = 10; i < 20; i++) doublyLinkedListUT->append(i);
 
     doublyLinkedListUT->swap(3, 6);
-    ASSERT_EQ(16, doublyLinkedListUT->getValue(3));
-    EXPECT_EQ(13, doublyLinkedListUT->getValue(6));
+    ASSERT_EQ(16, doublyLinkedListUT->at(3));
+    EXPECT_EQ(13, doublyLinkedListUT->at(6));
 
     doublyLinkedListUT->swap(0, 9);
-    EXPECT_EQ(19, doublyLinkedListUT->getValue(0));
-    EXPECT_EQ(10, doublyLinkedListUT->getValue(9));
+    EXPECT_EQ(19, doublyLinkedListUT->at(0));
+    EXPECT_EQ(10, doublyLinkedListUT->at(9));
 
     doublyLinkedListUT->swap(4, 4);
-    EXPECT_EQ(14, doublyLinkedListUT->getValue(4));
+    EXPECT_EQ(14, doublyLinkedListUT->at(4));
 }
 
 TEST_F(DoublyLinkedListTest, swapSet_wronglyOrderedIndices_swapsValues) {
     for (int i = 10; i < 20; i++) doublyLinkedListUT->append(i);
 
     doublyLinkedListUT->swap(6, 3);
-    ASSERT_EQ(16, doublyLinkedListUT->getValue(3));
-    EXPECT_EQ(13, doublyLinkedListUT->getValue(6));
+    ASSERT_EQ(16, doublyLinkedListUT->at(3));
+    EXPECT_EQ(13, doublyLinkedListUT->at(6));
 
     doublyLinkedListUT->swap(9, 0);
-    EXPECT_EQ(19, doublyLinkedListUT->getValue(0));
-    EXPECT_EQ(10, doublyLinkedListUT->getValue(9));
+    EXPECT_EQ(19, doublyLinkedListUT->at(0));
+    EXPECT_EQ(10, doublyLinkedListUT->at(9));
 }
 
 TEST_F(DoublyLinkedListTest, swapSet_overlappingIndices_throws) {
@@ -567,7 +567,7 @@ TEST_F(DoublyLinkedListTest, sort_populatedList_sortsList) {
 
     doublyLinkedListUT->sort();
 
-    for (unsigned i = 0; i < 100; i++) ASSERT_EQ(i + 10, doublyLinkedListUT->getValue(i));
+    for (unsigned i = 0; i < 100; i++) ASSERT_EQ(i + 10, doublyLinkedListUT->at(i));
 }
 
 TEST_F(DoublyLinkedListTest, sort_emptyList_doesNothing) {
@@ -588,21 +588,21 @@ TEST_F(DoublyLinkedListTest, operatorPlus_populatedLists_combinesLists) {
     for (int i = 20; i < 30; i++) doublyLinkedList2UT->append(i);
 
     auto *doublyLinkedList3UT = new lab6::DoublyLinkedList(*doublyLinkedListUT + *doublyLinkedList2UT);
-    for (unsigned i = 0; i < 20; i++) ASSERT_EQ(i + 10, doublyLinkedList3UT->getValue(i));
+    for (unsigned i = 0; i < 20; i++) ASSERT_EQ(i + 10, doublyLinkedList3UT->at(i));
 }
 
 TEST_F(DoublyLinkedListTest, operatorPlus_sameLists_combinesLists) {
     for (int i = 10; i < 20; i++) doublyLinkedListUT->append(i);
 
     auto *doublyLinkedList3UT = new lab6::DoublyLinkedList(*doublyLinkedListUT + *doublyLinkedListUT);
-    for (unsigned i = 0; i < 10; i++) ASSERT_EQ(i + 10, doublyLinkedList3UT->getValue(i));
-    for (unsigned i = 10; i < 20; i++) ASSERT_EQ(i, doublyLinkedList3UT->getValue(i));
+    for (unsigned i = 0; i < 10; i++) ASSERT_EQ(i + 10, doublyLinkedList3UT->at(i));
+    for (unsigned i = 10; i < 20; i++) ASSERT_EQ(i, doublyLinkedList3UT->at(i));
 }
 
 TEST_F(DoublyLinkedListTest, operatorPlus_emptyLists_doesNothing) {
     auto *doublyLinkedList2UT = new lab6::DoublyLinkedList;
     auto *doublyLinkedList3UT = new lab6::DoublyLinkedList(*doublyLinkedListUT + *doublyLinkedList2UT);
-    EXPECT_ANY_THROW(doublyLinkedList3UT->getValue(0));
+    EXPECT_ANY_THROW(doublyLinkedList3UT->at(0));
 }
 
 TEST_F(DoublyLinkedListTest, operatorEquals_doesNotCrash) {
@@ -615,8 +615,8 @@ TEST_F(DoublyLinkedListTest, operatorEquals_populatedLists_copiesValues) {
     lab6::DoublyLinkedList *copy = &*doublyLinkedListUT;
 
     for (int i = 0; i < 10; i++) {
-        ASSERT_EQ(i + 10, doublyLinkedListUT->getValue(i));
-        ASSERT_EQ(i + 10, copy->getValue(i));
+        ASSERT_EQ(i + 10, doublyLinkedListUT->at(i));
+        ASSERT_EQ(i + 10, copy->at(i));
     }
 }
 
@@ -626,20 +626,20 @@ TEST_F(DoublyLinkedListTest, operatorEquals_populatedLists_hardCopiesValues) {
     copy->operator=(*doublyLinkedListUT);
 
     doublyLinkedListUT->append(20);
-    ASSERT_EQ(20, doublyLinkedListUT->getValue(10));
-    EXPECT_ANY_THROW(copy->getValue(10));
+    ASSERT_EQ(20, doublyLinkedListUT->at(10));
+    EXPECT_ANY_THROW(copy->at(10));
 
     doublyLinkedListUT->insert(100, 3);
-    EXPECT_EQ(100, doublyLinkedListUT->getValue(3));
-    EXPECT_EQ(13, copy->getValue(3));
+    EXPECT_EQ(100, doublyLinkedListUT->at(3));
+    EXPECT_EQ(13, copy->at(3));
 
     copy->append(20);
-    EXPECT_EQ(19, doublyLinkedListUT->getValue(10));
-    EXPECT_EQ(20, copy->getValue(10));
+    EXPECT_EQ(19, doublyLinkedListUT->at(10));
+    EXPECT_EQ(20, copy->at(10));
 
     copy->remove(5);
-    EXPECT_EQ(14, doublyLinkedListUT->getValue(5));
-    EXPECT_EQ(16, copy->getValue(5));
+    EXPECT_EQ(14, doublyLinkedListUT->at(5));
+    EXPECT_EQ(16, copy->at(5));
 }
 
 TEST_F(DoublyLinkedListTest, operatorEquals_selfAssignment_doesNothing) {
@@ -647,16 +647,16 @@ TEST_F(DoublyLinkedListTest, operatorEquals_selfAssignment_doesNothing) {
     doublyLinkedListUT->operator=(*doublyLinkedListUT);
 
     doublyLinkedListUT->append(20);
-    ASSERT_EQ(20, doublyLinkedListUT->getValue(10));
+    ASSERT_EQ(20, doublyLinkedListUT->at(10));
 
     doublyLinkedListUT->insert(100, 3);
-    EXPECT_EQ(100, doublyLinkedListUT->getValue(3));
+    EXPECT_EQ(100, doublyLinkedListUT->at(3));
 
     doublyLinkedListUT->append(20);
-    EXPECT_EQ(19, doublyLinkedListUT->getValue(10));
+    EXPECT_EQ(19, doublyLinkedListUT->at(10));
 
     doublyLinkedListUT->remove(5);
-    EXPECT_EQ(15, doublyLinkedListUT->getValue(5));
+    EXPECT_EQ(15, doublyLinkedListUT->at(5));
 }
 
 TEST_F(DoublyLinkedListTest, operatorPlusEquals_doesNotCrash) {
@@ -670,7 +670,7 @@ TEST_F(DoublyLinkedListTest, operatorPlusEquals_populatedLists_appendsList) {
     for (int i = 20; i < 30; i++) doublyLinkedList2UT->append(i);
 
     doublyLinkedListUT->operator+=(*doublyLinkedList2UT);
-    for (int i = 0; i < 20; i++) ASSERT_EQ(i + 10, doublyLinkedListUT->getValue(i));
+    for (int i = 0; i < 20; i++) ASSERT_EQ(i + 10, doublyLinkedListUT->at(i));
 }
 
 TEST_F(DoublyLinkedListTest, operatorEqualsComparison_doesNotCrash) {
@@ -732,5 +732,5 @@ TEST_F(DoublyLinkedListTest, operatorExtraction_doesNotCrash) {
 TEST_F(DoublyLinkedListTest, operatorExtraction_appendsInput) {
     for (int i = 10; i < 20; i++) doublyLinkedListUT->append(i);
     for (int i = 20; i < 30; i++) std::stringstream(std::to_string(i)) >> *doublyLinkedListUT;
-    for (int i = 0; i < 20; i++) ASSERT_EQ(i + 10, doublyLinkedListUT->getValue(i));
+    for (int i = 0; i < 20; i++) ASSERT_EQ(i + 10, doublyLinkedListUT->at(i));
 }
