@@ -1,3 +1,17 @@
+cmake_minimum_required(VERSION 3.1)
+
+if (POLICY CMP0048)
+    cmake_policy(SET CMP0048 NEW)
+endif (POLICY CMP0048)
+
+project(googletest-distribution)
+set(GOOGLETEST_VERSION 1.10.0)
+
+enable_testing()
+
+include(CMakeDependentOption)
+include(GNUInstallDirs)
+
 include_directories(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
 
 add_executable(
@@ -12,7 +26,7 @@ add_executable(
         lab08_tests.cpp
 )
 
-add_subdirectory(gtest-1.7.0)
+add_subdirectory(gtest)
 
 target_link_libraries(runBasicTests gtest gtest_main)
 
