@@ -15,7 +15,7 @@ namespace lab1 {
         bool negative();
 
     public:
-        explicit ExpressionStream(std::string input);
+        explicit ExpressionStream(std::string expression);
 
         std::string parseNextToken();
         std::string parseCurrentToken();

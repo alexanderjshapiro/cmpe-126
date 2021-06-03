@@ -1,5 +1,5 @@
 #include "gtest/gtest.h"
-#include "../lib/lab07/inc/Tree.h"
+#include "Tree.h"
 
 class TreeTest : public ::testing::Test {
 protected:
@@ -60,56 +60,56 @@ TEST_F(TreeTest, insert_newValue_insertsNodeIntoTreeAtCorrectLocation) {
 }
 
 TEST_F(TreeTest, frequency_validValue_getsValueFrequency) {
-    EXPECT_EQ(treeUT2->getFrequency(12), 1);
-    EXPECT_EQ(treeUT2->getFrequency(22), 1);
-    EXPECT_EQ(treeUT2->getFrequency(16), 1);
-    EXPECT_EQ(treeUT2->getFrequency(4), 1);
-    EXPECT_EQ(treeUT2->getFrequency(11), 1);
+    EXPECT_EQ(treeUT2->frequency(12), 1);
+    EXPECT_EQ(treeUT2->frequency(22), 1);
+    EXPECT_EQ(treeUT2->frequency(16), 1);
+    EXPECT_EQ(treeUT2->frequency(4), 1);
+    EXPECT_EQ(treeUT2->frequency(11), 1);
 }
 
 TEST_F(TreeTest, frequency_invalidValue_0) {
-    EXPECT_EQ(treeUT2->getFrequency(0), 0);
-    EXPECT_EQ(treeUT2->getFrequency(21), 0);
-    EXPECT_EQ(treeUT2->getFrequency(23), 0);
-    EXPECT_EQ(treeUT2->getFrequency(-1), 0);
-    EXPECT_EQ(treeUT2->getFrequency(1000000), 0);
+    EXPECT_EQ(treeUT2->frequency(0), 0);
+    EXPECT_EQ(treeUT2->frequency(21), 0);
+    EXPECT_EQ(treeUT2->frequency(23), 0);
+    EXPECT_EQ(treeUT2->frequency(-1), 0);
+    EXPECT_EQ(treeUT2->frequency(1000000), 0);
 }
 
 TEST_F(TreeTest, insert_sameValue_incrementsValueFrequency) {
     treeUT2->insert(12);
-    EXPECT_EQ(treeUT2->getFrequency(12), 2);
+    EXPECT_EQ(treeUT2->frequency(12), 2);
 
     treeUT2->insert(22);
-    EXPECT_EQ(treeUT2->getFrequency(22), 2);
+    EXPECT_EQ(treeUT2->frequency(22), 2);
 
     treeUT2->insert(16);
-    EXPECT_EQ(treeUT2->getFrequency(16), 2);
+    EXPECT_EQ(treeUT2->frequency(16), 2);
 
     treeUT2->insert(4);
-    EXPECT_EQ(treeUT2->getFrequency(4), 2);
+    EXPECT_EQ(treeUT2->frequency(4), 2);
 
     treeUT2->insert(11);
-    EXPECT_EQ(treeUT2->getFrequency(11), 2);
+    EXPECT_EQ(treeUT2->frequency(11), 2);
 
     treeUT2->insert(12);
-    EXPECT_EQ(treeUT2->getFrequency(12), 3);
+    EXPECT_EQ(treeUT2->frequency(12), 3);
 }
 
 TEST_F(TreeTest, remove_valueWithFrequencyOne_removesNodeFromTree) {
     EXPECT_TRUE(treeUT2->remove(6));
     EXPECT_FALSE(treeUT2->inTree(6));
-    EXPECT_EQ(treeUT2->getFrequency(6), 0);
+    EXPECT_EQ(treeUT2->frequency(6), 0);
     EXPECT_EQ(treeUT2->size(), 20);
 }
 
 TEST_F(TreeTest, remove_valueWithFrequencyMoreThanOne_decrementsValueFrequency) {
     treeUT2->insert(6);
-    EXPECT_EQ(treeUT2->getFrequency(6), 2);
+    EXPECT_EQ(treeUT2->frequency(6), 2);
     EXPECT_EQ(treeUT2->size(), 22);
 
     EXPECT_TRUE(treeUT2->remove(6));
     EXPECT_TRUE(treeUT2->inTree(6));
-    EXPECT_EQ(treeUT2->getFrequency(6), 1);
+    EXPECT_EQ(treeUT2->frequency(6), 1);
     EXPECT_EQ(treeUT2->size(), 21);
 }
 
@@ -299,8 +299,8 @@ TEST_F(TreeTest, equalsOperator_validTree_hardCopiesValues) {
     EXPECT_FALSE(treeUT2->inTree(21));
     EXPECT_TRUE(treeUT1->inTree(21));
 
-    EXPECT_EQ(treeUT2->getFrequency(8), 2);
-    EXPECT_EQ(treeUT1->getFrequency(8), 2);
+    EXPECT_EQ(treeUT2->frequency(8), 2);
+    EXPECT_EQ(treeUT1->frequency(8), 2);
 }
 
 //TEST_F(TreeTest, values_above) {

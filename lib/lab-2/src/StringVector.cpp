@@ -11,25 +11,11 @@ namespace lab2 {
         *this = other;
     }
 
-    StringVector &StringVector::operator=(StringVector const &other) {
-        // Check for self-assignment
-        if (this == &other) return *this;
-
-        // Delete this data, reserve memory, and copy other data
-        delete[] data;
-        dataCapacity = other.dataCapacity;
-        data = new std::string[dataCapacity];
-        for (int i = 0; i < other.dataSize; ++i) data[i] = other.data[i];
-        dataSize = other.dataSize;
-
-        return *this;
-    }
-
     StringVector::~StringVector() {
         delete[] data;
     }
 
-    std::string &StringVector::operator[](unsigned index) const {
+    std::string &StringVector::at(unsigned index) const {
         if (index >= 0 && index < dataSize) return data[index];
         else throw std::runtime_error("index " + std::to_string(index) + " is invalid");
     }
@@ -68,6 +54,22 @@ namespace lab2 {
         if (capacity < dataSize) dataSize = capacity;
     }
 
+    void StringVector::condense() {
+        unsigned nextAvailableIndex = 0;
+        for (int i = 0; nextAvailableIndex < dataSize; i++) {
+            if (!data[i].empty()) {
+                data[nextAvailableIndex] = data[i];
+                data[i].clear();
+                nextAvailableIndex++;
+            }
+        }
+    }
+
+    void StringVector::optimize() {
+        condense();
+        reserve(dataSize);
+    }
+
     void StringVector::swap(unsigned index1, unsigned index2) {
         if (index1 < 0 || index1 >= dataSize) throw std::runtime_error("first index " + std::to_string(index1) + " is invalid");
         else if (index2 < 0 || index2 >= dataSize) throw std::runtime_error("second index " + std::to_string(index2) + " is invalid");
@@ -99,5 +101,23 @@ namespace lab2 {
                 }
             }
         }
+    }
+
+    StringVector &StringVector::operator=(StringVector const &other) {
+        // Check for self-assignment
+        if (this == &other) return *this;
+
+        // Delete this data, reserve memory, and copy other data
+        delete[] data;
+        dataCapacity = other.dataCapacity;
+        data = new std::string[dataCapacity];
+        for (int i = 0; i < other.dataSize; ++i) data[i] = other.data[i];
+        dataSize = other.dataSize;
+
+        return *this;
+    }
+
+    std::string &StringVector::operator[](unsigned index) const {
+        return at(index);
     }
 }

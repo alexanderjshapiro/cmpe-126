@@ -18,7 +18,7 @@ namespace lab7 {
         ~Tree();
 
         bool inTree(int value) const;
-        unsigned getFrequency(int value) const;
+        unsigned frequency(int value) const;
         int level(int value) const;
         void pathTo(int value) const;
         unsigned size() const;

@@ -1,7 +1,7 @@
 #include "ExpressionStream.h"
 
 namespace lab1 {
-    ExpressionStream::ExpressionStream(std::string input) : buffer(std::move(input)) {
+    ExpressionStream::ExpressionStream(std::string expression) : buffer(std::move(expression)) {
         currentPosition = buffer.begin();
         nextPosition = currentPosition;
 

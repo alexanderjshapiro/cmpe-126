@@ -21,24 +21,24 @@ set(SOURCE_FILES main.cpp)
 add_executable(labs_main ${SOURCE_FILES})
 
 include_directories(
-        lib/lab01/inc
-        lib/lab02/inc
-        lib/lab03/inc
-        lib/lab04/inc
-        lib/lab05/inc
-        lib/lab06/inc
-        lib/lab07/inc
-        lib/lab08/inc
+        lib/lab-1/inc
+        lib/lab-2/inc
+        lib/lab-3/inc
+        lib/lab-4/inc
+        lib/lab-5/inc
+        lib/lab-6/inc
+        lib/lab-7/inc
+        lib/lab-8/inc
 )
 
-add_subdirectory(lib/lab01 lab1_lib)
-add_subdirectory(lib/lab02 lab2_lib)
-add_subdirectory(lib/lab03 lab3_lib)
-add_subdirectory(lib/lab04 lab4_lib)
-add_subdirectory(lib/lab05 lab5_lib)
-add_subdirectory(lib/lab06 lab6_lib)
-add_subdirectory(lib/lab07 lab7_lib)
-add_subdirectory(lib/lab08 lab8_lib)
+add_subdirectory(lib/lab-1 lab1_lib)
+add_subdirectory(lib/lab-2 lab2_lib)
+add_subdirectory(lib/lab-3 lab3_lib)
+add_subdirectory(lib/lab-4 lab4_lib)
+add_subdirectory(lib/lab-5 lab5_lib)
+add_subdirectory(lib/lab-6 lab6_lib)
+add_subdirectory(lib/lab-7 lab7_lib)
+add_subdirectory(lib/lab-8 lab8_lib)
 
 add_subdirectory(test)
 

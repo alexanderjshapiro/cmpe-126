@@ -22,7 +22,7 @@ The following functions need to be implemented recursively
 
 - `bool inTree(int key)` 
 
-- `int getFrequency(int key)`
+- `int frequency(int key)`
 
 - `int level(int key)`
 

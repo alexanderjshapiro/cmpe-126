@@ -1,7 +1,7 @@
 #include <random>
 #include "gtest/gtest.h"
-#include "../lib/lab08/inc/HashTable.h"
-#include "../lib/lab08/src/sorts.cpp"
+#include "HashTable.h"
+#include "../lib/lab-8/src/sorts.cpp"
 
 class HashTableTest : public ::testing::Test {
 protected:

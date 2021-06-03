@@ -28,7 +28,7 @@ namespace lab7 {
         return getNodeRecursive(root, value);
     }
 
-    unsigned Tree::getFrequency(int value) const {
+    unsigned Tree::frequency(int value) const {
         TreeNode *node = getNodeRecursive(root, value);
         return (node) ? node->frequency : 0;
     }

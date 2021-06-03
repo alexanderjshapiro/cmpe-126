@@ -46,14 +46,14 @@ TEST_F(DoublyLinkedListTest, append_populatedList_addsValueToEnd) {
     for (int i = 0; i < 990; i++) ASSERT_EQ(i + 10, doublyLinkedListUT->at(i));
 }
 
-TEST_F(DoublyLinkedListTest, getValue_doesNotCrash) {
+TEST_F(DoublyLinkedListTest, at_doesNotCrash) {
     doublyLinkedListUT->append(10);
     doublyLinkedListUT->append(11);
     doublyLinkedListUT->append(12);
     EXPECT_NO_FATAL_FAILURE(doublyLinkedListUT->at(1));
 }
 
-TEST_F(DoublyLinkedListTest, getValue_validIndex_getsDataAtIndex) {
+TEST_F(DoublyLinkedListTest, at_validIndex_getsDataAtIndex) {
     doublyLinkedListUT->append(10);
     ASSERT_EQ(10, doublyLinkedListUT->at(0));
 
@@ -62,7 +62,7 @@ TEST_F(DoublyLinkedListTest, getValue_validIndex_getsDataAtIndex) {
     EXPECT_EQ(11, doublyLinkedListUT->at(1));
 }
 
-TEST_F(DoublyLinkedListTest, getValue_invalidIndex_throws) {
+TEST_F(DoublyLinkedListTest, at_invalidIndex_throws) {
     doublyLinkedListUT->append(10);
     ASSERT_NO_THROW(doublyLinkedListUT->at(0));
     EXPECT_ANY_THROW(doublyLinkedListUT->at(10));
@@ -70,7 +70,7 @@ TEST_F(DoublyLinkedListTest, getValue_invalidIndex_throws) {
     EXPECT_ANY_THROW(doublyLinkedListUT->at(1000000));
 }
 
-TEST_F(DoublyLinkedListTest, getValue_emptyList_throws) {
+TEST_F(DoublyLinkedListTest, at_emptyList_throws) {
     ASSERT_ANY_THROW(doublyLinkedListUT->at(0));
     EXPECT_ANY_THROW(doublyLinkedListUT->at(10));
     EXPECT_ANY_THROW(doublyLinkedListUT->at(-1));
@@ -415,14 +415,14 @@ TEST_F(DoublyLinkedListTest, size_emptyList_0) {
     EXPECT_EQ(0, doublyLinkedListUT->size());
 }
 
-TEST_F(DoublyLinkedListTest, isEmpty_doesNotCrash) {
+TEST_F(DoublyLinkedListTest, empty_doesNotCrash) {
     doublyLinkedListUT->append(10);
     doublyLinkedListUT->append(11);
     doublyLinkedListUT->append(12);
     EXPECT_NO_FATAL_FAILURE(doublyLinkedListUT->empty());
 }
 
-TEST_F(DoublyLinkedListTest, isEmpty_tracksAppendsInsertionsRemovalsAndSplits) {
+TEST_F(DoublyLinkedListTest, empty_tracksAppendsInsertionsRemovalsAndSplits) {
     for (int i = 10; i < 20; i++) doublyLinkedListUT->append(i);
     EXPECT_FALSE(doublyLinkedListUT->empty());
 
@@ -442,7 +442,7 @@ TEST_F(DoublyLinkedListTest, isEmpty_tracksAppendsInsertionsRemovalsAndSplits) {
     EXPECT_TRUE(doublyLinkedListUT->empty());
 }
 
-TEST_F(DoublyLinkedListTest, isEmpty_emptyList_true) {
+TEST_F(DoublyLinkedListTest, empty_emptyList_true) {
     EXPECT_TRUE(doublyLinkedListUT->empty());
 }
 

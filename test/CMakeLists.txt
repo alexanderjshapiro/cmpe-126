@@ -16,14 +16,14 @@ include_directories(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
 
 add_executable(
         runBasicTests
-        lab01_tests.cpp
-        lab02_tests.cpp
-        lab03_tests.cpp
-        lab04_tests.cpp
-        lab05_tests.cpp
-        lab06_tests.cpp
-        lab07_tests.cpp
-        lab08_tests.cpp
+        lab-1-tests.cpp
+        lab-2-tests.cpp
+        lab-3-tests.cpp
+        lab-4-tests.cpp
+        lab-5-tests.cpp
+        lab-6-tests.cpp
+        lab-7-tests.cpp
+        lab-8-tests.cpp
 )
 
 add_subdirectory(gtest)
